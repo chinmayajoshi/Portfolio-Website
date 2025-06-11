@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Name] - Data Scientist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://placehold.co/32x32/000000/FFFFFF?text=P" type="image/x-icon">
+</head>
+<body>
+    <!-- Theme toggle switch -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+    </div>
+
+    <!-- Animated Owl Mascot -->
+    <div id="animated-mascot">
+        <div class="sparkle-container"></div>
+        <!-- SVG for an owl with a hat -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <g class="owl-body">
+                <path d="M50 95C25 95 5 75 5 50S25 5 50 5s45 20 45 45-20 45-45 45z" fill="#8d6e63"/>
+                <path d="M50 90C28 90 10 72 10 50S28 10 50 10s40 18 40 40-18 40-40 40z" fill="#a1887f"/>
+                <circle cx="35" cy="45" r="12" fill="white"/>
+                <circle cx="65" cy="45" r="12" fill="white"/>
+                <circle cx="35" cy="45" r="5" fill="black"/>
+                <circle cx="65" cy="45" r="5" fill="black"/>
+                <path d="M45 65l5 10 5-10z" fill="#ffab00"/>
+            </g>
+            <g class="owl-hat">
+                 <path d="M30 30h40v5H30z" fill="#3e2723"/>
+                 <path d="M35 15h30v15H35z" fill="#4e342e"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- NEW: Interactive Terminal Popup (initially hidden) -->
+    <div id="terminal-popup" class="terminal-window hidden">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="dot red" id="terminal-close"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+            <div class="terminal-title">user@portfolio.dev</div>
+        </div>
+        <div id="terminal-body" class="terminal-body">
+            <div id="terminal-output"></div>
+            <div class="terminal-input-line">
+                <span class="prompt">$&nbsp;</span>
+                <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" autofocus>
+            </div>
+        </div>
+    </div>
+
+
+    <canvas id="background-canvas"></canvas>
+
+    <div class="container">
+        
+        <header class="landing">
+            <div class="landing-content">
+                <h1>[Your Name]</h1>
+                <p>Data Scientist</p>
+                <a href="https://github.com/[your-github-username]" target="_blank" rel="noopener noreferrer" class="github-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+            </div>
+            <a href="#work-experience" class="scroll-down" aria-label="Scroll down"></a>
+        </header>
+
+        <main>
+            <!-- Sections will get 'reveal-on-scroll' class from JS -->
+            <section id="work-experience">
+                <h2>Work Experience</h2>
+                <div class="experience-list">
+                    {% for job in work_experiences %}
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h3>{{ job.company }}</h3>
+                            <p>{{ job.location }}</p>
+                        </div>
+                        <div class="experience-subheader">
+                            <h4>{{ job.role }}</h4>
+                            <p>{{ job.year }}</p>
+                        </div>
+                        <ul class="experience-description">
+                            {% for point in job.description %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            
+            <section id="volunteer-projects">
+                <h2>Volunteer Projects</h2>
+                 <div class="experience-list">
+                    {% for job in volunteer_experiences %}
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <h3>{{ job.company }}</h3>
+                            <p>{{ job.location }}</p>
+                        </div>
+                        <div class="experience-subheader">
+                            <h4>{{ job.role }}</h4>
+                            <p>{{ job.year }}</p>
+                        </div>
+                        <ul class="experience-description">
+                            {% for point in job.description %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section id="personal-projects">
+                <h2>Personal Projects</h2>
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">All</button> 
+                    {% for category in projects|map(attribute='category')|unique|sort %}
+                    <button class="filter-btn" data-filter="{{ category|lower }}">{{ category }}</button>
+                    {% endfor %}
+                </div>
+                <div class="project-grid">
+                    {% for project in projects %}
+                    <a href="{{ project.link }}" target="_blank" class="project-tile" data-category="{{ project.category|lower }}">
+                        <div class="project-content">
+                            <h3>{{ project.title }}</h3>
+                            <span>{{ project.category }}</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+            
+            <section id="blog">
+                <h2>From the Blog</h2>
+                <div class="blog-list">
+                    {% for post in blogs %}
+                    <a href="{{ post.link }}" class="blog-post-item">
+                        <div class="blog-post-header">
+                            <h3>{{ post.title }}</h3>
+                            <p class="blog-date">{{ post.date }}</p>
+                        </div>
+                        <p class="blog-summary">{{ post.summary }}</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- UPDATED: Technical Skills Section -->
+            <section id="technical-skills">
+                <h2>Technical Skills</h2>
+                <div class="skill-cloud">
+                    {% for skill in skills %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section id="resume">
+                <h2>Resume</h2>
+                <div class="resume-link">
+                     <a href="[your-resume-link.pdf]" target="_blank" class="btn">Download My Resume</a>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <!-- NEW: Terminal toggle button -->
+            <button id="terminal-toggle" class="terminal-toggle-btn" title="Open Terminal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            </button>
+            <p>Get in touch:</p>
+            <ul>
+                <li><a href="mailto:[your-email@example.com]">[email]</a></li>
+                <li><a href="tel:[your-phonenumber]">[number]</a></li>
+                <li><a href="https://github.com/[your-github-username]" target="_blank">GitHub</a></li>
+                <li><a href="https://linkedin.com/in/[your-linkedin-profile]" target="_blank">LinkedIn</a></li>
+                <li><a href="https://[your-substack].substack.com/" target="_blank">Substack</a></li>
+            </ul>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</body>
+</html>
