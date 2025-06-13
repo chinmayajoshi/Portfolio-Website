@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        threshold: 0.1 // Trigger when 10% of the element is visible
+        threshold: 0.1
     });
 
     const sections = document.querySelectorAll('section');
@@ -29,54 +29,63 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.updateParticleColor) window.updateParticleColor();
     });
 
-    // --- Animated Mascot Logic ---
+    // --- UPDATED: Animated Mascot Logic ---
     const mascot = document.getElementById('animated-mascot');
-    const sparkleContainer = mascot.querySelector('.sparkle-container');
+    const clickCounterElement = document.getElementById('owl-click-counter');
     let mascotTimeout;
+    let owlClickCount = 0;
+    let clickCounterTimeout;
+
 
     function showMascot() {
-        mascot.classList.remove('glittering');
-        const positions = [
-            { top: '10%', left: '-120px', transform: 'translateX(120px)' },
-            { top: '50%', right: '-120px', transform: 'translateX(-120px) scaleX(-1)' },
-            { bottom: '5%', left: '-120px', transform: 'translateX(120px)' },
-        ];
-        const randomPos = positions[Math.floor(Math.random() * positions.length)];
-        
-        Object.keys(randomPos).forEach(key => mascot.style[key] = randomPos[key] === 'auto' ? '' : randomPos[key]);
-        mascot.style.removeProperty('right'); mascot.style.removeProperty('left'); mascot.style.removeProperty('top'); mascot.style.removeProperty('bottom');
-        Object.assign(mascot.style, randomPos);
+        mascot.classList.remove('vanishing');
 
-        setTimeout(() => mascot.style.transform += ' rotate(-5deg)', 1000);
-        setTimeout(() => mascot.style.transform = mascot.style.transform.replace(' rotate(-5deg)', ''), 4000);
+        const mascotSize = 100;
+        const availableWidth = window.innerWidth - mascotSize;
+        const availableHeight = window.innerHeight - mascotSize;
+
+        const randomTop = Math.random() * availableHeight;
+        const randomLeft = Math.random() * availableWidth;
+
+        mascot.style.top = `${randomTop}px`;
+        mascot.style.left = `${randomLeft}px`;
+        mascot.style.transform = Math.random() < 0.5 ? 'scaleX(1)' : 'scaleX(-1)';
         
-        mascotTimeout = setTimeout(hideMascot, 8000);
+        // UPDATED: Decreased frequency by increasing timeout
+        mascotTimeout = setTimeout(hideMascot, 12000);
     }
 
     function hideMascot() {
-        mascot.style.transform = mascot.style.transform.split(' ')[0]; // Reset rotation
-        mascotTimeout = setTimeout(showMascot, 15000); // Wait before reappearing
+        mascot.classList.add('vanishing');
+        mascotTimeout = setTimeout(showMascot, 25000); // It will take longer to reappear
     }
 
-    mascot.addEventListener('click', () => {
-        if (mascot.classList.contains('glittering')) return;
+    mascot.addEventListener('click', (e) => {
+        if (mascot.classList.contains('vanishing')) return;
+        
         clearTimeout(mascotTimeout);
-        mascot.classList.add('glittering');
+        mascot.classList.add('vanishing');
 
-        for(let i=0; i<10; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.top = `${Math.random() * 100}%`;
-            sparkle.style.left = `${Math.random() * 100}%`;
-            sparkle.style.animationDelay = `${Math.random() * 0.2}s`;
-            sparkleContainer.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 600);
-        }
+        owlClickCount++;
+        clickCounterElement.textContent = `+${owlClickCount}`;
+        
+        // UPDATED: Position the counter where the owl was clicked
+        const rect = mascot.getBoundingClientRect();
+        clickCounterElement.style.top = `${rect.top + rect.height / 2}px`;
+        clickCounterElement.style.left = `${rect.left + rect.width / 2}px`;
+        clickCounterElement.classList.add('show');
+        
+        clearTimeout(clickCounterTimeout); 
+        clickCounterTimeout = setTimeout(() => {
+            clickCounterElement.classList.remove('show');
+        }, 2000);
 
-        mascotTimeout = setTimeout(showMascot, 5000); // Reappear after some time
+        mascotTimeout = setTimeout(showMascot, 5000);
     });
 
-    showMascot(); // Initial call
+    // Initial call after a short delay
+    setTimeout(showMascot, 3000);
+
 
     // --- Interactive Terminal Logic ---
     const terminalPopup = document.getElementById('terminal-popup');
@@ -87,11 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const commandHistory = [];
     let historyIndex = -1;
 
+    const hasTerminalBeenOpened = sessionStorage.getItem('terminalOpened');
+    if (!hasTerminalBeenOpened) {
+        terminalToggle.classList.add('glow');
+    }
+
+    // Note: The 'skills' and 'contact' commands are now dynamically populated by Jinja
     const commands = {
         help: "Available commands:\n[help] - Show this message\n[motd] - Display the message of the day\n[skills] - List technical skills\n[contact] - Show contact information\n[clear] - Clear the terminal",
         motd: "Specialization: Data Science & ML\nCore Strengths: Python, PyTorch, SQL, AWS\nCurrent Status: Seeking new challenges",
-        skills: `{{ skills|join(', ') }}`, // This will be rendered by Flask
-        contact: "[email] - mailto:[your-email@example.com]\n[github] - https://github.com/[your-github-username]",
+        skills: `{{ skills|join(', ') }}`,
+        contact: "[email] - mailto:{{ personal_info.email }}\n[github] - https://github.com/{{ personal_info.github_username }}",
         clear: () => { terminalOutput.innerHTML = ''; return ''; }
     };
     
@@ -99,23 +114,51 @@ document.addEventListener('DOMContentLoaded', () => {
         if(show) {
             terminalPopup.classList.remove('hidden');
             terminalInput.focus();
+            if (terminalToggle.classList.contains('glow')) {
+                terminalToggle.classList.remove('glow');
+                sessionStorage.setItem('terminalOpened', 'true');
+            }
         } else {
             terminalPopup.classList.add('hidden');
         }
     }
     
-    terminalToggle.addEventListener('click', () => toggleTerminal(true));
+    terminalToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleTerminal(terminalPopup.classList.contains('hidden'));
+    });
     terminalClose.addEventListener('click', () => toggleTerminal(false));
+
+    document.addEventListener('click', (event) => {
+        if (!terminalPopup.classList.contains('hidden')) {
+            const isClickInsideTerminal = terminalPopup.contains(event.target);
+            const isClickOnToggle = terminalToggle.contains(event.target);
+            
+            if (!isClickInsideTerminal && !isClickOnToggle) {
+                toggleTerminal(false);
+            }
+        }
+    });
 
     terminalInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && terminalInput.value) {
             const input = terminalInput.value.trim().toLowerCase();
-            commandHistory.unshift(input);
+            if(input) commandHistory.unshift(input);
             historyIndex = -1;
             
             printToTerminal(`$&nbsp;<span class="command">${input}</span>`);
-            const output = commands[input] ? (typeof commands[input] === 'function' ? commands[input]() : commands[input]) : `command not found: ${input}`;
-            if(output) printToTerminal(output, 'output');
+            const outputText = commands[input] ? (typeof commands[input] === 'function' ? commands[input]() : commands[input]) : `command not found: ${input}`;
+            
+            // This check prevents empty output from being printed (e.g., after 'clear')
+            if(outputText) {
+                // Replace Jinja placeholders if they still exist (for presentation)
+                const finalOutput = outputText
+                    .replace("{{ skills|join(', ') }}", "Python, Scikit-learn, PyTorch, SQL, etc.")
+                    .replace("mailto:{{ personal_info.email }}", "mailto:contact@example.com")
+                    .replace("https://github.com/{{ personal_info.github_username }}", "https://github.com/example");
+
+                printToTerminal(finalOutput, 'output');
+            }
             
             terminalInput.value = '';
             terminalPopup.querySelector('.terminal-body').scrollTop = terminalPopup.querySelector('.terminal-body').scrollHeight;
@@ -139,9 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
         terminalOutput.innerHTML += `<div class="${className}">${text}</div>`;
     }
 
-    printToTerminal("Welcome to my portfolio's interactive shell.\nType 'help' for a list of commands.", "output");
+    printToTerminal("Welcome! Type 'help' for a list of commands.", "output");
 
-    // --- Project Filtering Logic (no changes from previous version) ---
+    // --- Project Filtering Logic (unchanged) ---
     const filterContainer = document.querySelector('.project-filters');
     if (filterContainer) {
         const filterButtons = filterContainer.querySelectorAll('.filter-btn');
@@ -152,27 +195,28 @@ document.addEventListener('DOMContentLoaded', () => {
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const filter = button.dataset.filter;
+                button.classList.toggle('active');
+
                 if (filter === 'all') {
                     activeFilters = [];
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
+                    filterButtons.forEach(btn => { if (btn !== button) btn.classList.remove('active'); });
                 } else {
                     allButton.classList.remove('active');
                     if (activeFilters.includes(filter)) {
                         activeFilters = activeFilters.filter(f => f !== filter);
-                        button.classList.remove('active');
                     } else {
                         activeFilters.push(filter);
-                        button.classList.add('active');
                     }
                 }
-                if (activeFilters.length === 0) {
+                
+                if (activeFilters.length === 0 && !allButton.classList.contains('active')) {
                     allButton.classList.add('active');
                 }
+
                 projectTiles.forEach(tile => {
                     const category = tile.dataset.category;
                     if (activeFilters.length === 0 || activeFilters.includes(category)) {
-                        tile.style.display = 'block';
+                        tile.style.display = 'flex';
                     } else {
                         tile.style.display = 'none';
                     }
@@ -181,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Background Canvas Animation (no changes from previous version) ---
+    // --- Background Canvas Animation (unchanged) ---
     const canvas = document.getElementById('background-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');

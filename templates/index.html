@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Your Name] - Data Scientist</title>
+    <title>{{ personal_info.name }} - {{ personal_info.tagline }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="icon" href="https://placehold.co/32x32/000000/FFFFFF?text=P" type="image/x-icon">
 </head>
 <body>
@@ -21,8 +21,7 @@
 
     <!-- Animated Owl Mascot -->
     <div id="animated-mascot">
-        <div class="sparkle-container"></div>
-        <!-- SVG for an owl with a hat -->
+        <div class="smoke-container"></div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
             <g class="owl-body">
                 <path d="M50 95C25 95 5 75 5 50S25 5 50 5s45 20 45 45-20 45-45 45z" fill="#8d6e63"/>
@@ -39,8 +38,9 @@
             </g>
         </svg>
     </div>
+    
+    <div id="owl-click-counter" class="click-counter"></div>
 
-    <!-- NEW: Interactive Terminal Popup (initially hidden) -->
     <div id="terminal-popup" class="terminal-window hidden">
         <div class="terminal-header">
             <div class="terminal-buttons">
@@ -58,7 +58,10 @@
             </div>
         </div>
     </div>
-
+    
+    <button id="terminal-toggle" class="terminal-toggle-btn" title="Open Terminal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+    </button>
 
     <canvas id="background-canvas"></canvas>
 
@@ -66,17 +69,25 @@
         
         <header class="landing">
             <div class="landing-content">
-                <h1>[Your Name]</h1>
-                <p>Data Scientist</p>
-                <a href="https://github.com/[your-github-username]" target="_blank" rel="noopener noreferrer" class="github-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
+                <h1>{{ personal_info.name }}</h1>
+                <p>{{ personal_info.tagline }}</p>
+                <!-- UPDATED: Landing page social links -->
+                <div class="landing-socials">
+                    <a href="https://github.com/{{ personal_info.github_username }}" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </a>
+                    <a href="https://linkedin.com/in/{{ personal_info.linkedin_profile }}" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                     <a href="mailto:{{ personal_info.email }}" class="social-link" title="Email">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                </div>
             </div>
             <a href="#work-experience" class="scroll-down" aria-label="Scroll down"></a>
         </header>
 
         <main>
-            <!-- Sections will get 'reveal-on-scroll' class from JS -->
             <section id="work-experience">
                 <h2>Work Experience</h2>
                 <div class="experience-list">
@@ -158,7 +169,6 @@
                 </div>
             </section>
 
-            <!-- UPDATED: Technical Skills Section -->
             <section id="technical-skills">
                 <h2>Technical Skills</h2>
                 <div class="skill-cloud">
@@ -171,23 +181,19 @@
             <section id="resume">
                 <h2>Resume</h2>
                 <div class="resume-link">
-                     <a href="[your-resume-link.pdf]" target="_blank" class="btn">Download My Resume</a>
+                     <a href="{{ personal_info.resume_link }}" target="_blank" class="btn">Download My Resume</a>
                 </div>
             </section>
         </main>
         
         <footer>
-            <!-- NEW: Terminal toggle button -->
-            <button id="terminal-toggle" class="terminal-toggle-btn" title="Open Terminal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-            </button>
             <p>Get in touch:</p>
             <ul>
-                <li><a href="mailto:[your-email@example.com]">[email]</a></li>
-                <li><a href="tel:[your-phonenumber]">[number]</a></li>
-                <li><a href="https://github.com/[your-github-username]" target="_blank">GitHub</a></li>
-                <li><a href="https://linkedin.com/in/[your-linkedin-profile]" target="_blank">LinkedIn</a></li>
-                <li><a href="https://[your-substack].substack.com/" target="_blank">Substack</a></li>
+                <li><a href="mailto:{{ personal_info.email }}">{{ personal_info.email }}</a></li>
+                <li><a href="tel:{{ personal_info.phone }}">{{ personal_info.phone }}</a></li>
+                <li><a href="https://github.com/{{ personal_info.github_username }}" target="_blank">GitHub</a></li>
+                <li><a href="https://linkedin.com/in/{{ personal_info.linkedin_profile }}" target="_blank">LinkedIn</a></li>
+                <li><a href="https://{{ personal_info.substack }}.substack.com/" target="_blank">Substack</a></li>
             </ul>
         </footer>
     </div>
