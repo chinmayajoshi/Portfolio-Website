@@ -1,4 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
+// --- Wait for the entire page to load before running scripts ---
+window.onload = () => {
+
+    // --- Smooth Scrolling for Anchor Links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if(targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 
     // --- Reveal on Scroll ---
     const observer = new IntersectionObserver((entries) => {
@@ -29,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.updateParticleColor) window.updateParticleColor();
     });
 
-    // --- UPDATED: Animated Mascot Logic ---
+    // --- Animated Mascot Logic ---
     const mascot = document.getElementById('animated-mascot');
     const clickCounterElement = document.getElementById('owl-click-counter');
     let mascotTimeout;
@@ -38,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function showMascot() {
+        mascot.classList.add('visible'); // Make it appear
         mascot.classList.remove('vanishing');
 
         const mascotSize = 100;
@@ -51,25 +67,26 @@ document.addEventListener('DOMContentLoaded', () => {
         mascot.style.left = `${randomLeft}px`;
         mascot.style.transform = Math.random() < 0.5 ? 'scaleX(1)' : 'scaleX(-1)';
         
-        // UPDATED: Decreased frequency by increasing timeout
-        mascotTimeout = setTimeout(hideMascot, 12000);
+        mascotTimeout = setTimeout(hideMascot, 12000); 
     }
 
     function hideMascot() {
         mascot.classList.add('vanishing');
-        mascotTimeout = setTimeout(showMascot, 25000); // It will take longer to reappear
+        // This class is removed to ensure it can be made visible again later
+        mascot.classList.remove('visible'); 
+        mascotTimeout = setTimeout(showMascot, 40000); // 40 seconds to reappear
     }
 
-    mascot.addEventListener('click', (e) => {
-        if (mascot.classList.contains('vanishing')) return;
+    mascot.addEventListener('click', () => {
+        if (mascot.classList.contains('vanishing') || !mascot.classList.contains('visible')) return;
         
         clearTimeout(mascotTimeout);
         mascot.classList.add('vanishing');
+        mascot.classList.remove('visible');
 
         owlClickCount++;
         clickCounterElement.textContent = `+${owlClickCount}`;
         
-        // UPDATED: Position the counter where the owl was clicked
         const rect = mascot.getBoundingClientRect();
         clickCounterElement.style.top = `${rect.top + rect.height / 2}px`;
         clickCounterElement.style.left = `${rect.left + rect.width / 2}px`;
@@ -80,11 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
             clickCounterElement.classList.remove('show');
         }, 2000);
 
-        mascotTimeout = setTimeout(showMascot, 5000);
+        mascotTimeout = setTimeout(showMascot, 45000); // 45 seconds to reappear after click
     });
 
-    // Initial call after a short delay
-    setTimeout(showMascot, 3000);
+    // FIXED: Initial call is correctly delayed after window has fully loaded.
+    // The owl is hidden by CSS by default. This timer makes it appear for the first time.
+    setTimeout(showMascot, 30000); // 30 seconds
 
 
     // --- Interactive Terminal Logic ---
@@ -101,16 +119,29 @@ document.addEventListener('DOMContentLoaded', () => {
         terminalToggle.classList.add('glow');
     }
 
-    // Note: The 'skills' and 'contact' commands are now dynamically populated by Jinja
+    const allProjectsData = JSON.parse(document.getElementById('projects-data').textContent);
+    const aboutData = document.getElementById('about-data').textContent;
+
     const commands = {
-        help: "Available commands:\n[help] - Show this message\n[motd] - Display the message of the day\n[skills] - List technical skills\n[contact] - Show contact information\n[clear] - Clear the terminal",
+        help: "Available commands:\n[help]   - Show this message\n[about]  - Display a summary about me\n[skills] - List my technical skills\n[projects]- List available personal projects\n[contact]- Show contact information\n[theme]  - Toggle light/dark mode\n[date]   - Display the current date\n[clear]  - Clear the terminal\n[exit]   - Close the terminal",
+        about: aboutData,
         motd: "Specialization: Data Science & ML\nCore Strengths: Python, PyTorch, SQL, AWS\nCurrent Status: Seeking new challenges",
         skills: `{{ skills|join(', ') }}`,
         contact: "[email] - mailto:{{ personal_info.email }}\n[github] - https://github.com/{{ personal_info.github_username }}",
-        clear: () => { terminalOutput.innerHTML = ''; return ''; }
+        projects: () => allProjectsData.map(p => `- ${p.title} (${p.category})`).join('\n'),
+        date: () => new Date().toLocaleString(),
+        theme: () => {
+            themeToggle.click();
+            return `Theme toggled to ${document.body.classList.contains('dark-mode') ? 'Dark' : 'Light'} Mode.`;
+        },
+        clear: () => { terminalOutput.innerHTML = ''; return ''; },
+        exit: () => { toggleTerminal(false); return '';}
     };
     
     function toggleTerminal(show) {
+        const isHidden = terminalPopup.classList.contains('hidden');
+        if (show === undefined) show = isHidden; 
+
         if(show) {
             terminalPopup.classList.remove('hidden');
             terminalInput.focus();
@@ -125,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     terminalToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        toggleTerminal(terminalPopup.classList.contains('hidden'));
+        toggleTerminal();
     });
     terminalClose.addEventListener('click', () => toggleTerminal(false));
 
@@ -146,28 +177,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if(input) commandHistory.unshift(input);
             historyIndex = -1;
             
-            printToTerminal(`$&nbsp;<span class="command">${input}</span>`);
-            const outputText = commands[input] ? (typeof commands[input] === 'function' ? commands[input]() : commands[input]) : `command not found: ${input}`;
+            printToTerminal(`$&nbsp;<span class="command">${input}</span>`, 'prompt');
+            const commandFn = commands[input];
+            const outputText = commandFn ? (typeof commandFn === 'function' ? commandFn() : commandFn) : `command not found: ${input}`;
             
-            // This check prevents empty output from being printed (e.g., after 'clear')
             if(outputText) {
-                // Replace Jinja placeholders if they still exist (for presentation)
-                const finalOutput = outputText
-                    .replace("{{ skills|join(', ') }}", "Python, Scikit-learn, PyTorch, SQL, etc.")
-                    .replace("mailto:{{ personal_info.email }}", "mailto:contact@example.com")
-                    .replace("https://github.com/{{ personal_info.github_username }}", "https://github.com/example");
-
-                printToTerminal(finalOutput, 'output');
+                printToTerminal(outputText, 'output');
             }
             
             terminalInput.value = '';
             terminalPopup.querySelector('.terminal-body').scrollTop = terminalPopup.querySelector('.terminal-body').scrollHeight;
         } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
             if (historyIndex < commandHistory.length - 1) {
                 historyIndex++;
                 terminalInput.value = commandHistory[historyIndex];
             }
         } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
             if (historyIndex > 0) {
                 historyIndex--;
                 terminalInput.value = commandHistory[historyIndex];
@@ -178,13 +205,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    function printToTerminal(text, className = 'prompt') {
-        terminalOutput.innerHTML += `<div class="${className}">${text}</div>`;
+    function printToTerminal(text, className = 'output') {
+        const line = document.createElement('div');
+        line.className = className;
+        line.innerHTML = text;
+        terminalOutput.appendChild(line);
     }
 
     printToTerminal("Welcome! Type 'help' for a list of commands.", "output");
 
-    // --- Project Filtering Logic (unchanged) ---
+    // --- Project Filtering Logic ---
     const filterContainer = document.querySelector('.project-filters');
     if (filterContainer) {
         const filterButtons = filterContainer.querySelectorAll('.filter-btn');
@@ -193,7 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let activeFilters = [];
 
         filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault(); 
                 const filter = button.dataset.filter;
                 button.classList.toggle('active');
 
@@ -225,7 +256,67 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Background Canvas Animation (unchanged) ---
+    // --- NEW: Project Modal Logic ---
+    const projectGrid = document.querySelector('.project-grid');
+    const modal = document.getElementById('project-modal');
+    const modalBackdrop = document.getElementById('project-modal-backdrop');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalTechStack = document.getElementById('modal-tech-stack');
+
+    function openModal(projectId) {
+        const projectData = allProjectsData.find(p => p.id === projectId);
+        if (!projectData) return;
+
+        modalTitle.textContent = projectData.title;
+
+        // Populate description
+        modalDescription.innerHTML = '';
+        const descList = document.createElement('ul');
+        projectData.description.forEach(point => {
+            const item = document.createElement('li');
+            item.textContent = point;
+            descList.appendChild(item);
+        });
+        modalDescription.appendChild(descList);
+
+        // Populate tech stack
+        modalTechStack.innerHTML = '';
+        projectData.tech_stack.forEach(tech => {
+            const tag = document.createElement('span');
+            tag.className = 'skill-tag';
+            tag.textContent = tech;
+            modalTechStack.appendChild(tag);
+        });
+
+        modal.classList.remove('hidden');
+        modalBackdrop.classList.remove('hidden');
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modalBackdrop.classList.add('hidden');
+    }
+
+    projectGrid.addEventListener('click', (e) => {
+        const actionButton = e.target.closest('.project-action-btn');
+        if (!actionButton) return;
+
+        // Check if it's the details button (and not the github link)
+        if (actionButton.tagName.toLowerCase() === 'button') {
+             const tile = e.target.closest('.project-tile');
+             if (tile) {
+                openModal(tile.dataset.projectId);
+            }
+        }
+    });
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', closeModal);
+
+
+    // --- Background Canvas Animation ---
     const canvas = document.getElementById('background-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -233,9 +324,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let height = canvas.height = window.innerHeight;
         let particles = [];
         let mouse = { x: null, y: null };
-        let particleColor = document.body.classList.contains('dark-mode') ? '#eeeeee' : '#3d3d3d';
+        
+        window.updateParticleColor = () => document.body.classList.contains('dark-mode') ? '#eeeeee' : '#3d3d3d';
+        let particleColor = window.updateParticleColor();
 
-        window.updateParticleColor = () => { particleColor = document.body.classList.contains('dark-mode') ? '#eeeeee' : '#3d3d3d'; };
         class Particle { constructor() { this.x = mouse.x; this.y = mouse.y; this.size = Math.random() * 2 + 1; this.speedX = Math.random() * 3 - 1.5; this.speedY = Math.random() * 3 - 1.5; this.life = 0; this.maxLife = 50; } update() { this.x += this.speedX; this.y += this.speedY; this.life++; if (this.size > 0.1) this.size -= 0.05; } draw() { ctx.fillStyle = particleColor; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } }
         function handleParticles() { for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); if (particles[i].life > particles[i].maxLife || particles[i].size <= 0.1) { particles.splice(i, 1); i--; } } }
         function animate() { ctx.clearRect(0, 0, width, height); handleParticles(); requestAnimationFrame(animate); }
@@ -243,4 +335,4 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; for (let i = 0; i < 3; i++) { particles.push(new Particle()); } });
         window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
     }
-});
+};

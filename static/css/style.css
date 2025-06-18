@@ -2,7 +2,7 @@
 
 /* --- Color & Font Variables --- */
 :root {
-    --bg-color: #f8f7f2; /* A warmer, more marble-like white */
+    --bg-color: #f8f7f2;
     --text-color: #3d3d3d;
     --primary-accent: #2c2c2c;
     --secondary-accent: #8a8a8a;
@@ -27,6 +27,10 @@ body.dark-mode {
     --shadow-color: rgba(0,0,0,0.2);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -43,7 +47,7 @@ a { color: var(--primary-accent); text-decoration: none; transition: color 0.3s 
 a:hover { color: var(--secondary-accent); }
 
 /* --- Theme Switch --- */
-.theme-switch-wrapper { position: fixed; top: 1rem; right: 1rem; z-index: 1001; }
+.theme-switch-wrapper { position: fixed; top: 1rem; right: 1rem; z-index: 1002; }
 .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
 .theme-switch input { opacity: 0; width: 0; height: 0; }
 .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
@@ -57,19 +61,24 @@ input:checked + .slider:before { transform: translateX(24px); }
     width: 100px; height: 100px;
     z-index: 50; cursor: pointer;
     will-change: transform, opacity, filter;
-    /* UPDATED: Added opacity for transparency */
-    opacity: 0.9;
+    /* FIXED: Hide the owl by default */
+    opacity: 0;
+    pointer-events: none; 
     transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease, top 1s ease-in-out, left 1s ease-in-out;
 }
+#animated-mascot.visible {
+    opacity: 0.9;
+    pointer-events: auto;
+}
 #animated-mascot.vanishing {
-    opacity: 0 !important; /* Use important to override the base opacity */
+    opacity: 0 !important;
     transform: translateY(20px) scale(0.5) rotate(30deg) !important;
     filter: blur(4px);
+    pointer-events: none;
 }
 
 .click-counter {
-    position: fixed; /* Position will be set by JS */
-    /* UPDATED: Transform origin is now centered */
+    position: fixed;
     transform: translate(-50%, -50%) scale(0.8);
     font-family: var(--game-font-family);
     font-size: 3rem;
@@ -80,7 +89,6 @@ input:checked + .slider:before { transform: translateX(24px); }
     pointer-events: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
 .click-counter.show {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
@@ -90,20 +98,184 @@ input:checked + .slider:before { transform: translateX(24px); }
 section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
 section.is-visible { opacity: 1; transform: translateY(0); }
 
-/* --- Interactive Terminal --- */
-#terminal-popup {
-    position: fixed;
-    bottom: 20px; right: 20px;
-    width: 90%; max-width: 600px;
-    height: 400px;
-    z-index: 1000;
-    transition: opacity 0.3s, transform 0.3s;
+/* --- Project Grid & NEW Modal --- */
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+.project-tile {
+    border: 1px solid transparent; /* Start transparent for hover effect */
+    border-radius: 12px;
+    height: 150px;
+    padding: 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
-#terminal-popup.hidden {
+.project-tile:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 25px var(--shadow-color);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+.project-tile .project-content {
+    transition: opacity 0.3s ease;
+}
+.project-tile:hover .project-content {
+    opacity: 0; /* Hide text on hover to show actions */
+}
+.project-tile-actions {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
     opacity: 0;
-    transform: translateY(20px);
+    transition: opacity 0.3s ease;
+}
+.project-tile:hover .project-tile-actions {
+    opacity: 1;
+}
+.project-action-btn {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--primary-accent);
+    transition: all 0.3s ease;
+}
+.project-action-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    color: var(--gold-color);
+    border-color: var(--gold-color);
+}
+.project-action-btn svg {
+    stroke: currentColor;
+}
+
+/* NEW: Project Modal Styles */
+.modal-backdrop {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1010;
+    transition: opacity 0.3s ease;
+}
+.modal {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    z-index: 1011;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex; /* For layouting */
+    flex-direction: column;
+}
+.modal.hidden, .modal-backdrop.hidden {
+    opacity: 0;
     pointer-events: none;
 }
+.modal:not(.hidden) {
+    transform: translate(-50%, -50%) scale(1);
+}
+.modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary-accent);
+    padding: 0.5rem;
+    line-height: 0;
+    border-radius: 50%;
+    transition: color 0.3s, background-color 0.3s;
+}
+.modal-close:hover {
+    color: var(--primary-accent);
+    background-color: var(--border-color);
+}
+.modal-content {
+    padding: 2.5rem;
+    overflow-y: auto;
+}
+.modal-content h2 {
+    margin-top: 0;
+    border-bottom: none;
+    font-size: 2.2rem;
+}
+.modal-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--secondary-accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#modal-description {
+    list-style-position: outside;
+    padding-left: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+#modal-tech-stack {
+    justify-content: flex-start; /* Align tags to the left */
+    padding: 0;
+}
+#modal-tech-stack .skill-tag {
+    cursor: pointer; /* To indicate they are just tags */
+    background: var(--bg-color);
+}
+
+/* --- Landing Page --- */
+.landing { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
+.landing-content h1 { font-size: 4rem; margin: 0; }
+.landing-content p { font-size: 1.5rem; color: var(--secondary-accent); margin: 0.5rem 0 1.5rem; }
+.landing-socials { display: flex; justify-content: center; gap: 1.25rem; }
+.social-link { display: inline-block; transition: transform 0.3s ease; }
+.social-link:hover { transform: scale(1.15); color: var(--text-color); }
+.social-link svg { stroke: var(--primary-accent); }
+.social-link:hover svg { stroke: var(--text-color); }
+.scroll-down { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); width: 24px; height: 40px; border: 2px solid var(--primary-accent); border-radius: 20px; }
+.scroll-down::before { content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 4px; height: 8px; background: var(--primary-accent); border-radius: 2px; animation: scroll-animation 2s infinite; }
+@keyframes scroll-animation { 0% { transform: translate(-50%, 0); opacity: 1; } 50% { transform: translate(-50%, 10px); opacity: 1; } 100% { transform: translate(-50%, 20px); opacity: 0; } }
+
+/* Other Sections */
+.experience-list, .blog-list { display: grid; gap: 1.5rem; }
+.experience-item, .blog-post-item { padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--card-bg-color); transition: all 0.3s ease; }
+.experience-item:hover, .blog-post-item:hover { box-shadow: 0 4px 15px var(--shadow-color); transform: translateY(-5px); }
+.experience-header, .experience-subheader, .blog-post-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem; }
+.experience-description { padding-left: 1.2rem; margin-top: 1rem; color: var(--text-color); opacity: 0.9; }
+.project-filters { margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.filter-btn { background: transparent; border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-family: var(--font-family); font-size: 0.9rem; transition: all 0.3s ease; color: var(--text-color); }
+.filter-btn:hover { background-color: var(--border-color); border-color: var(--primary-accent); }
+.filter-btn.active { background-color: var(--primary-accent); color: var(--bg-color); border-color: var(--primary-accent); }
+.resume-link { text-align: center; }
+.btn { display: inline-block; background-color: var(--primary-accent); color: var(--bg-color); padding: 0.8rem 2rem; border-radius: 8px; font-weight: 500; transition: background-color 0.3s ease; }
+.btn:hover { background-color: #000; color: var(--bg-color); }
+footer { text-align: center; margin-top: 5rem; padding: 2rem 0; border-top: 2px solid var(--border-color); }
+footer p { margin-bottom: 0.5rem; }
+footer ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+
+/* Interactive Terminal & Toggle */
+#terminal-popup { position: fixed; bottom: 20px; right: 20px; width: 90%; max-width: 600px; height: 400px; z-index: 1000; transition: opacity 0.3s, transform 0.3s; }
+#terminal-popup.hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
 .terminal-window { background: #282c34; border-radius: 8px; box-shadow: 0 10px 30px var(--shadow-color); border: 1px solid var(--border-color); display: flex; flex-direction: column; }
 .terminal-header { background: #e0e0e0; padding: 8px; border-top-left-radius: 8px; border-top-right-radius: 8px; display: flex; align-items: center; flex-shrink: 0; cursor: grab; }
 body.dark-mode .terminal-header { background: #333; }
@@ -119,8 +291,12 @@ body.dark-mode .terminal-title { color: #ccc; }
 #terminal-output .prompt { color: #61afef; }
 #terminal-output .command { color: #98c379; }
 #terminal-output .output { color: #dcdfe4; white-space: pre-wrap; }
-
-/* --- Skill Cloud --- */
+.terminal-toggle-btn { position: fixed; right: 20px; bottom: 20px; background: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 50%; width: 55px; height: 55px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 1001; box-shadow: 0 5px 15px var(--shadow-color); }
+.terminal-toggle-btn svg { stroke: var(--secondary-accent); transition: stroke 0.3s; }
+.terminal-toggle-btn:hover { border-color: var(--primary-accent); transform: scale(1.1); box-shadow: 0 8px 20px var(--shadow-color); }
+.terminal-toggle-btn:hover svg { stroke: var(--primary-accent); }
+.terminal-toggle-btn.glow { animation: glowing 2.5s infinite ease-in-out; }
+@keyframes glowing { 0%, 100% { box-shadow: 0 0 5px var(--gold-color), 0 0 10px var(--gold-color), 0 5px 15px var(--shadow-color); } 50% { box-shadow: 0 0 15px var(--gold-color), 0 0 25px var(--gold-color), 0 5px 15px var(--shadow-color); } }
 .skill-cloud { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1rem; padding: 2rem 0; }
 .skill-tag { padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: 6px; font-weight: 500; color: var(--secondary-accent); background: var(--bg-color); box-shadow: inset 0 0 0 0 transparent; text-shadow: 1px 1px 2px var(--shadow-color); position: relative; overflow: hidden; cursor: default; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .skill-tag:hover { color: var(--primary-accent); border-color: var(--gold-color); transform: scale(1.05); box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
@@ -128,73 +304,3 @@ body.dark-mode .terminal-title { color: #ccc; }
 .skill-tag:hover::before { left: 100%; }
 body.dark-mode .skill-tag { color: var(--secondary-accent); background: var(--card-bg-color); }
 body.dark-mode .skill-tag:hover { color: var(--text-color); box-shadow: 0 4px 15px rgba(212,175,55,0.1); }
-
-/* --- Footer & UPDATED Terminal Toggle --- */
-footer { text-align: center; margin-top: 5rem; padding: 2rem 0; border-top: 2px solid var(--border-color); }
-footer p { margin-bottom: 0.5rem; }
-footer ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-
-.terminal-toggle-btn {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    background: var(--card-bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    /* UPDATED: Made button bigger */
-    width: 55px;
-    height: 55px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 1001;
-    /* UPDATED: Added a permanent subtle shadow */
-    box-shadow: 0 5px 15px var(--shadow-color);
-}
-.terminal-toggle-btn svg { stroke: var(--secondary-accent); transition: stroke 0.3s; }
-.terminal-toggle-btn:hover { border-color: var(--primary-accent); transform: scale(1.1); box-shadow: 0 8px 20px var(--shadow-color); }
-.terminal-toggle-btn:hover svg { stroke: var(--primary-accent); }
-
-.terminal-toggle-btn.glow {
-    /* UPDATED: Brighter glow animation */
-    animation: glowing 2.5s infinite ease-in-out;
-}
-@keyframes glowing {
-  0%, 100% { box-shadow: 0 0 5px var(--gold-color), 0 0 10px var(--gold-color), 0 5px 15px var(--shadow-color); }
-  50% { box-shadow: 0 0 15px var(--gold-color), 0 0 25px var(--gold-color), 0 5px 15px var(--shadow-color); }
-}
-
-
-/* --- Landing Page --- */
-.landing { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
-.landing-content h1 { font-size: 4rem; margin: 0; }
-.landing-content p { font-size: 1.5rem; color: var(--secondary-accent); margin: 0.5rem 0 1.5rem; }
-
-/* NEW: Styles for the social links on the landing page */
-.landing-socials { display: flex; justify-content: center; gap: 1.25rem; }
-.social-link { display: inline-block; transition: transform 0.3s ease; }
-.social-link:hover { transform: scale(1.15); color: var(--text-color); }
-.social-link svg { stroke: var(--primary-accent); }
-.social-link:hover svg { stroke: var(--text-color); }
-
-.scroll-down { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); width: 24px; height: 40px; border: 2px solid var(--primary-accent); border-radius: 20px; }
-.scroll-down::before { content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 4px; height: 8px; background: var(--primary-accent); border-radius: 2px; animation: scroll-animation 2s infinite; }
-@keyframes scroll-animation { 0% { transform: translate(-50%, 0); opacity: 1; } 50% { transform: translate(-50%, 10px); opacity: 1; } 100% { transform: translate(-50%, 20px); opacity: 0; } }
-
-/* --- Other Sections --- */
-.experience-list, .blog-list { display: grid; gap: 1.5rem; }
-.experience-item, .blog-post-item { padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--card-bg-color); transition: all 0.3s ease; }
-.experience-item:hover, .blog-post-item:hover { box-shadow: 0 4px 15px var(--shadow-color); transform: translateY(-5px); }
-.experience-header, .experience-subheader, .blog-post-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem; }
-.experience-description { padding-left: 1.2rem; margin-top: 1rem; color: var(--text-color); opacity: 0.9; }
-.project-filters { margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.filter-btn { background: transparent; border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-family: var(--font-family); font-size: 0.9rem; transition: all 0.3s ease; color: var(--text-color); }
-.filter-btn:hover { background-color: var(--border-color); border-color: var(--primary-accent); }
-.filter-btn.active { background-color: var(--primary-accent); color: var(--bg-color); border-color: var(--primary-accent); }
-.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
-.project-tile { border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; height: 150px; padding: 1rem; position: relative; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s ease; }
-.project-tile:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 10px 25px var(--shadow-color); border-color: rgba(255, 255, 255, 0.2); }
-.resume-link { text-align: center; } .btn { display: inline-block; background-color: var(--primary-accent); color: var(--bg-color); padding: 0.8rem 2rem; border-radius: 8px; font-weight: 500; transition: background-color 0.3s ease; }
-.btn:hover { background-color: #000; color: var(--bg-color); }

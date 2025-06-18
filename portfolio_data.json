@@ -2,6 +2,7 @@
   "personal_info": {
     "name": "[Your Name]",
     "tagline": "Data Scientist",
+    "about": "A creative data scientist with a passion for uncovering stories hidden within data and building intelligent systems.",
     "github_username": "[your-github-username]",
     "linkedin_profile": "[your-linkedin-profile]",
     "email": "[your-email@example.com]",
@@ -47,18 +48,54 @@
     }
   ],
   "personal_projects": [
-    { "title": "Project Chimera", "category": "NLP", "link": "#" },
-    { "title": "Project Griffin", "category": "Computer Vision", "link": "#" },
-    { "title": "Project Hydra", "category": "LLM", "link": "#" },
-    { "title": "Project Cerberus", "category": "Red Team", "link": "#" },
-    { "title": "Project Phoenix", "category": "NLP", "link": "#" },
-    { "title": "Project Basilisk", "category": "Computer Vision", "link": "#" },
-    { "title": "Project Pegasus", "category": "LLM", "link": "#" },
-    { "title": "Project Kraken", "category": "Red Team", "link": "#" },
-    { "title": "Project Wyvern", "category": "NLP", "link": "#" },
-    { "title": "Project Sphinx", "category": "Computer Vision", "link": "#" },
-    { "title": "Project Manticore", "category": "LLM", "link": "#" },
-    { "title": "Project Leviathan", "category": "Red Team", "link": "#" }
+    {
+      "id": "project-chimera",
+      "title": "Project Chimera",
+      "category": "NLP",
+      "github_link": "#",
+      "description": [
+        "Developed a sentiment analysis model to classify customer reviews with 94% accuracy.",
+        "Utilized TF-IDF vectorization and a Support Vector Machine (SVM) classifier.",
+        "Deployed the model as a REST API using Flask for real-time predictions."
+      ],
+      "tech_stack": ["Python", "Scikit-learn", "Pandas", "Flask"]
+    },
+    {
+      "id": "project-griffin",
+      "title": "Project Griffin",
+      "category": "Computer Vision",
+      "github_link": "#",
+      "description": [
+        "Trained a convolutional neural network (CNN) to detect and classify different types of architectural styles from images.",
+        "Achieved a top-5 accuracy of 88% on a custom dataset of 20,000 images.",
+        "Leveraged transfer learning with a pre-trained ResNet50 model."
+      ],
+      "tech_stack": ["PyTorch", "OpenCV", "Matplotlib", "AWS S3"]
+    },
+    {
+      "id": "project-hydra",
+      "title": "Project Hydra",
+      "category": "LLM",
+      "github_link": "#",
+      "description": [
+        "Fine-tuned a GPT-2 model on a specialized corpus of ancient texts to generate stylistically consistent new passages.",
+        "Developed a data pipeline for text cleaning, normalization, and tokenization.",
+        "Built an interactive web interface with Streamlit for users to generate text."
+      ],
+      "tech_stack": ["Hugging Face", "PyTorch", "NLP", "Streamlit"]
+    },
+    {
+      "id": "project-cerberus",
+      "title": "Project Cerberus",
+      "category": "Red Team",
+      "github_link": "#",
+      "description": [
+        "Simulated phishing attacks and analyzed employee response rates to identify security vulnerabilities.",
+        "Developed custom payloads and analyzed network traffic for signs of intrusion.",
+        "Presented a comprehensive report to stakeholders with actionable recommendations."
+      ],
+      "tech_stack": ["Metasploit", "Wireshark", "Python", "Social Engineering"]
+    }
   ],
   "blog_posts": [
     {
