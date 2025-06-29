@@ -10,13 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="icon" href="https://placehold.co/32x32/000000/FFFFFF?text=P" type="image/x-icon">
 </head>
-<body class="no-scroll"> <!-- Initially prevent scrolling -->
-    <!-- Theme toggle switch -->
+<body class="no-scroll">
+    <!-- Theme toggle with icons -->
     <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-        </label>
+        <div id="theme-toggle" class="theme-switch-icon" title="Toggle Theme">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </div>
     </div>
 
     <!-- Animated Mascot -->
@@ -35,38 +35,65 @@
     </div>
     <button id="terminal-toggle" class="terminal-toggle-btn" title="Open Terminal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg></button>
 
-    <!-- Background Canvas -->
     <canvas id="background-canvas"></canvas>
     
-    <!-- Hidden data for JS -->
+    <!-- Data Islands for JavaScript -->
     <script id="projects-data" type="application/json">{{ projects | tojson }}</script>
-    <div id="about-data" style="display: none;">{{ personal_info.about }}</div>
+    <script id="skills-data" type="application/json">{{ skills | tojson }}</script>
+    <script id="certifications-data" type="application/json">{{ certifications | tojson }}</script>
+    <script id="personal-info-data" type="application/json">{{ personal_info | tojson }}</script>
 
-    <!-- Sidebar Navigation -->
+
+    <!-- FIX: Sidebar with decorative bubble spans -->
     <nav class="sidebar-nav">
-        <a href="#work-experience" class="nav-button" data-target="#work-experience">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>Work</span>
+        <a href="#experience" class="nav-button" data-target="#experience">
+            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
+            <div class="nav-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Experience</span>
+            </div>
         </a>
-        <a href="#volunteer-projects" class="nav-button" data-target="#volunteer-projects">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span>Volunteer</span>
+        <a href="#education" class="nav-button" data-target="#education">
+            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
+            <div class="nav-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 1.66 4 3 6 3s6-1.34 6-3v-5"></path></svg>
+                <span>Education</span>
+            </div>
         </a>
         <a href="#personal-projects" class="nav-button" data-target="#personal-projects">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
-            <span>Projects</span>
+            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
+            <div class="nav-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+                <span>Projects</span>
+            </div>
         </a>
-        <a href="#blog" class="nav-button" data-target="#blog">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-            <span>Blog</span>
+        <a href="#certifications" class="nav-button" data-target="#certifications">
+             <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
+            <div class="nav-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline><path d="m9 12 2 2 4-4"></path></svg>
+                <span>Credentials</span>
+            </div>
         </a>
         <a href="#technical-skills" class="nav-button" data-target="#technical-skills">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            <span>Skills</span>
+            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
+            <div class="nav-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                <span>Skills</span>
+            </div>
         </a>
-        <a href="#resume" class="nav-button" data-target="#resume">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-            <span>Resume</span>
+        <a href="#blog" class="nav-button" data-target="#blog">
+            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
+            <div class="nav-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <span>Blog</span>
+            </div>
+        </a>
+        <a href="#about-me" class="nav-button" data-target="#about-me">
+            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
+            <div class="nav-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>About</span>
+            </div>
         </a>
     </nav>
 
@@ -80,57 +107,138 @@
                     <a href="https://linkedin.com/in/{{ personal_info.linkedin_profile }}" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
                     <a href="mailto:{{ personal_info.email }}" class="social-link" title="Email"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
                     <a href="https://{{ personal_info.substack }}.substack.com/" target="_blank" rel="noopener noreferrer" class="social-link" title="Blog/Substack"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
+                    <a href="{{ personal_info.resume_link }}" target="_blank" rel="noopener noreferrer" class="social-link" title="Resume"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></a>
                 </div>
             </div>
         </header>
 
         <main class="hidden">
-            <section id="work-experience">
+            <section id="experience">
                 <button class="section-close-btn" title="Close Section">&times;</button>
-                <h2>Work Experience</h2>
-                <div class="experience-list">{% for job in work_experiences %}<div class="experience-item"><div class="experience-header"><h3>{{ job.company }}</h3><p>{{ job.location }}</p></div><div class="experience-subheader"><h4>{{ job.role }}</h4><p>{{ job.year }}</p></div><ul class="experience-description">{% for point in job.description %}<li>{{ point }}</li>{% endfor %}</ul></div>{% endfor %}</div>
+                <h2>Experience</h2>
+                <div class="experience-list">
+                    {% for job in all_experiences %}
+                    <div class="section-item" data-type="{{ job.type }}">
+                        <div class="experience-header">
+                            <h3>{{ job.company }}</h3>
+                            <p>{{ job.location }}</p>
+                        </div>
+                        <div class="experience-subheader">
+                            <h4>{{ job.role }}</h4>
+                            <p>{{ job.year }}</p>
+                        </div>
+                        <ul class="experience-description">
+                            {% for point in job.description %}
+                                <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% if job.type == 'volunteer' %}
+                        <div class="experience-links">
+                            {% if job.repo_link %}<a href="{{ job.repo_link }}" class="experience-link-btn" target="_blank" rel="noopener noreferrer">Repository</a>{% endif %}
+                            {% if job.cert_link %}<a href="{{ job.cert_link }}" class="experience-link-btn" target="_blank" rel="noopener noreferrer">Certificate</a>{% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
             </section>
-            <section id="volunteer-projects">
+
+            <section id="education">
                 <button class="section-close-btn" title="Close Section">&times;</button>
-                <h2>Volunteer Projects</h2>
-                <div class="experience-list">{% for job in volunteer_experiences %}<div class="experience-item"><div class="experience-header"><h3>{{ job.company }}</h3><p>{{ job.location }}</p></div><div class="experience-subheader"><h4>{{ job.role }}</h4><p>{{ job.year }}</p></div><ul class="experience-description">{% for point in job.description %}<li>{{ point }}</li>{% endfor %}</ul></div>{% endfor %}</div>
+                <h2>Education</h2>
+                <div class="education-list">
+                    {% for edu in education %}
+                    <div class="section-item">
+                        <div class="experience-header">
+                            <h3>{{ edu.institution }}</h3>
+                            <p>{{ edu.location }}</p>
+                        </div>
+                        <div class="experience-subheader">
+                            <h4>{{ edu.degree }}</h4>
+                            <p>{{ edu.year }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </section>
+
             <section id="personal-projects">
                 <button class="section-close-btn" title="Close Section">&times;</button>
                 <h2>Personal Projects</h2>
                 <div class="project-filters"><button class="filter-btn active" data-filter="all">All</button>{% for category in projects|map(attribute='category')|unique|sort %}<button class="filter-btn" data-filter="{{ category|lower }}">{{ category }}</button>{% endfor %}</div>
-                <div class="project-grid">{% for project in projects %}<div class="project-tile" data-category="{{ project.category|lower }}" data-project-id="{{ project.id }}"><div class="project-content"><h3>{{ project.title }}</h3><span>{{ project.category }}</span></div><div class="project-tile-actions"><button class="project-action-btn" title="View Details"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer" class="project-action-btn" title="View on GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></div></div>{% endfor %}</div>
+                <div class="project-grid">
+                    {% for project in projects %}
+                    <div class="project-tile" data-category="{{ project.category|lower }}" data-project-id="{{ project.id }}">
+                        <div class="project-content"><h3>{{ project.title }}</h3><span>{{ project.category }}</span></div>
+                        <div class="project-tile-actions"><button class="project-action-btn" title="View Details"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer" class="project-action-btn" title="View on GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></div>
+                    </div>
+                    {% endfor %}
+                </div>
             </section>
-            <section id="blog">
+            
+            <section id="certifications">
                 <button class="section-close-btn" title="Close Section">&times;</button>
-                <h2>From the Blog</h2>
-                <div class="blog-list">{% for post in blogs %}<a href="{{ post.link }}" target="_blank" rel="noopener noreferrer" class="blog-post-item"><div class="blog-post-header"><h3>{{ post.title }}</h3><p class="blog-date">{{ post.date }}</p></div><p class="blog-summary">{{ post.summary }}</p></a>{% endfor %}</div>
+                <h2>Credentials</h2>
+                 <div class="cert-filters project-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    {% for issuer in certifications|map(attribute='issuer')|unique|sort %}
+                    <button class="filter-btn" data-filter="{{ issuer }}">{{ issuer }}</button>
+                    {% endfor %}
+                </div>
+                <div class="cert-grid">
+                    {% for cert in certifications %}
+                    <a href="{{ cert.certificate_link }}" target="_blank" rel="noopener noreferrer" class="cert-tile" data-issuer="{{ cert.issuer }}">
+                        <img src="{{ cert.image_url }}" alt="{{ cert.name }} Certificate" class="cert-image" onerror="this.src='https://placehold.co/300x200/cccccc/ffffff?text=Image+Not+Found';">
+                        <div class="cert-info">
+                            <h5>{{ cert.name }}</h5>
+                            <p>{{ cert.issuer }} - {{ cert.date }}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="pagination-controls" id="cert-pagination"></div>
             </section>
+            
             <section id="technical-skills">
                 <button class="section-close-btn" title="Close Section">&times;</button>
                 <h2>Technical Skills</h2>
                 <div class="skill-cloud">{% for skill in skills %}<span class="skill-tag">{{ skill }}</span>{% endfor %}</div>
             </section>
-            <section id="resume">
+
+            <section id="blog">
                 <button class="section-close-btn" title="Close Section">&times;</button>
-                <h2>Resume</h2>
-                <div class="resume-link"><a href="{{ personal_info.resume_link }}" target="_blank" class="btn">Download My Resume</a></div>
+                <h2>From the Blog</h2>
+                <div class="blog-list">
+                    {% for post in blogs %}
+                    <a href="{{ post.link }}" target="_blank" rel="noopener noreferrer" class="section-item">
+                        <div class="blog-post-header"><h3>{{ post.title }}</h3><p class="blog-date">{{ post.date }}</p></div>
+                        <p class="blog-summary">{{ post.summary }}</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section id="about-me">
+                <button class="section-close-btn" title="Close Section">&times;</button>
+                <h2>{{ about_me.title }}</h2>
+                <div class="about-me-content">
+                    <div class="about-me-pic-wrapper">
+                        <img src="{{ about_me.profile_pic }}" alt="Profile Picture" class="about-me-pic"  onerror="this.src='https://placehold.co/150x150/d4af37/f8f7f2?text=Me';">
+                    </div>
+                    <div class="about-me-text">
+                        {% for paragraph in about_me.description %}
+                            <p>{{ paragraph }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </section>
         </main>
     </div>
     
-    <!-- RESTORED: Project Modal Structure -->
     <div id="project-modal-backdrop" class="modal-backdrop hidden"></div>
     <div id="project-modal" class="modal hidden">
-        <button id="modal-close-btn" class="modal-close" title="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-        <div class="modal-content">
-            <h2 id="modal-title">Project Title</h2>
-            <div id="modal-description"></div>
-            <h3>Tech Stack</h3>
-            <div id="modal-tech-stack" class="skill-cloud"></div>
-        </div>
+        <button id="modal-close-btn" class="modal-close" title="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        <div class="modal-content"><h2 id="modal-title">Project Title</h2><div id="modal-description"></div><h3>Tech Stack</h3><div id="modal-tech-stack" class="skill-cloud"></div></div>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>

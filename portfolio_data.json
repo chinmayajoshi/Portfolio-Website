@@ -10,6 +10,39 @@
     "substack": "[your-substack]",
     "resume_link": "[your-resume-link.pdf]"
   },
+  "about_me": {
+    "title": "My Philosophy",
+    "profile_pic": "https://placehold.co/150x150/d4af37/f8f7f2?text=Me",
+    "description": [
+      "I believe that data is the new clay. It's a raw, often messy, material that holds the potential for immense beauty and utility. My approach is that of a sculptor: to meticulously clean, shape, and mold data until it reveals the insights and stories hidden within.",
+      "My work isn't just about models and metrics; it's about building intelligent systems that are not only accurate but also fair, interpretable, and robust. I thrive on the challenge of translating complex business problems into elegant, data-driven solutions.",
+      "Whether it's building a predictive engine or architecting a data pipeline, I'm driven by a relentless curiosity and a desire to create things that have a tangible impact."
+    ]
+  },
+  "education": [
+    {
+      "institution": "University of Atlantis",
+      "degree": "M.S. in Computational Data Science",
+      "location": "Atlantis",
+      "year": "2018 - 2020"
+    },
+    {
+      "institution": "Coruscant Institute of Technology",
+      "degree": "B.S. in Computer Science & Statistics",
+      "location": "Coruscant",
+      "year": "2014 - 2018"
+    }
+  ],
+  "certifications": [
+    { "name": "Deep Learning Specialization", "issuer": "Coursera", "date": "2023", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+1", "certificate_link": "#" },
+    { "name": "TensorFlow Developer Certificate", "issuer": "Google", "date": "2023", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+2", "certificate_link": "#" },
+    { "name": "AWS Certified Machine Learning - Specialty", "issuer": "Amazon Web Services", "date": "2022", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+3", "certificate_link": "#" },
+    { "name": "Microsoft Certified: Azure Data Scientist Associate", "issuer": "Microsoft", "date": "2022", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+4", "certificate_link": "#" },
+    { "name": "Natural Language Processing Specialization", "issuer": "Coursera", "date": "2021", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+5", "certificate_link": "#" },
+    { "name": "Google Cloud Professional Data Engineer", "issuer": "Google", "date": "2021", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+6", "certificate_link": "#" },
+    { "name": "Certified Analytics Professional (CAP)", "issuer": "INFORMS", "date": "2020", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+7", "certificate_link": "#" },
+    { "name": "SAS Certified Advanced Analytics Professional", "issuer": "SAS", "date": "2020", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+8", "certificate_link": "#" }
+  ],
   "work_experience": [
     {
       "company": "Stark Industries",
@@ -44,7 +77,9 @@
         "Analyzed census data of house-elf populations to advocate for better working conditions.",
         "Created dashboards to track the distribution of socks and other clothing items.",
         "Used natural language processing to analyze texts for pro-elf sentiment."
-      ]
+      ],
+      "repo_link": "#",
+      "cert_link": "#"
     }
   ],
   "personal_projects": [
@@ -109,12 +144,6 @@
       "date": "September 15, 2023",
       "link": "#",
       "summary": "Breaking down the self-attention mechanism and positional encodings that make Transformers the state-of-the-art in NLP."
-    },
-    {
-      "title": "Deploying Models with Flask and Docker",
-      "date": "August 02, 2023",
-      "link": "#",
-      "summary": "A practical, step-by-step guide to containerizing a machine learning model and serving it via a REST API for production use."
     }
   ],
   "technical_skills": [
