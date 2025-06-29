@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 def load_portfolio_data():
     """Loads portfolio data from the portfolio_data.json file."""
-    with open('data.json', 'r', encoding='utf-8') as f:
+    with open('portfolio_data.json', 'r', encoding='utf-8') as f:
         return json.load(f)
 
 # This context processor makes portfolio data available to all templates.
