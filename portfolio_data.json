@@ -1,18 +1,17 @@
 {
   "personal_info": {
-    "name": "[Your Name]",
+    "name": "Chinmaya Joshi",
     "tagline": "Data Scientist",
     "about": "A creative data scientist with a passion for uncovering stories hidden within data and building intelligent systems.",
-    "github_username": "[your-github-username]",
-    "linkedin_profile": "[your-linkedin-profile]",
-    "email": "[your-email@example.com]",
-    "phone": "[your-phonenumber]",
-    "substack": "[your-substack]",
-    "resume_link": "[your-resume-link.pdf]"
+    "github_username": "chinmayajoshi",
+    "linkedin_profile": "chinmaya-joshi",
+    "email": "chinmayajoshi6@gmail.com",
+    "substack": "chinmayajoshi",
+    "resume_link": "https://drive.google.com/file/d/1HwaoYza1eghkid8o_nO6vl9IY8gE0Ec6/view?usp=sharing"
   },
   "about_me": {
     "title": "My Philosophy",
-    "profile_pic": "https://placehold.co/150x150/d4af37/f8f7f2?text=Me",
+    "profile_pic": "https://media.licdn.com/dms/image/v2/D4D03AQE5C1TZJRMyzg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1680953445021?e=1756944000&v=beta&t=_LT1LMS4mzvJwvPKC0qZIo8oYbzpiFQSNvJLge4NOG4",
     "description": [
       "I believe that data is the new clay. It's a raw, often messy, material that holds the potential for immense beauty and utility. My approach is that of a sculptor: to meticulously clean, shape, and mold data until it reveals the insights and stories hidden within.",
       "My work isn't just about models and metrics; it's about building intelligent systems that are not only accurate but also fair, interpretable, and robust. I thrive on the challenge of translating complex business problems into elegant, data-driven solutions.",
@@ -21,134 +20,144 @@
   },
   "education": [
     {
-      "institution": "University of Atlantis",
-      "degree": "M.S. in Computational Data Science",
-      "location": "Atlantis",
-      "year": "2018 - 2020"
-    },
-    {
-      "institution": "Coruscant Institute of Technology",
-      "degree": "B.S. in Computer Science & Statistics",
-      "location": "Coruscant",
-      "year": "2014 - 2018"
+      "institution": "SRM Institute of Science and Technology",
+      "degree": "B. Tech. in Computer Science and Engineering",
+      "location": "Chennai",
+      "year": "2016 - 2020"
     }
   ],
   "certifications": [
-    { "name": "Deep Learning Specialization", "issuer": "Coursera", "date": "2023", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+1", "certificate_link": "#" },
-    { "name": "TensorFlow Developer Certificate", "issuer": "Google", "date": "2023", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+2", "certificate_link": "#" },
-    { "name": "AWS Certified Machine Learning - Specialty", "issuer": "Amazon Web Services", "date": "2022", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+3", "certificate_link": "#" },
-    { "name": "Microsoft Certified: Azure Data Scientist Associate", "issuer": "Microsoft", "date": "2022", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+4", "certificate_link": "#" },
-    { "name": "Natural Language Processing Specialization", "issuer": "Coursera", "date": "2021", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+5", "certificate_link": "#" },
-    { "name": "Google Cloud Professional Data Engineer", "issuer": "Google", "date": "2021", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+6", "certificate_link": "#" },
-    { "name": "Certified Analytics Professional (CAP)", "issuer": "INFORMS", "date": "2020", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+7", "certificate_link": "#" },
-    { "name": "SAS Certified Advanced Analytics Professional", "issuer": "SAS", "date": "2020", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Cert+8", "certificate_link": "#" }
+    { "name": "SQL: A Step-by-Step Intorduction for Data Science", "issuer": "Udemy", "date": "2024", "certificate_link": "https://www.udemy.com/certificate/UC-d52f23b9-84a5-4da0-80df-d0f4ed7c9c67/", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Udemy"},
+    { "name": "ChatGPT Prompt Engineering for Developers", "issuer": "DeepLearning.AI", "date": "2024", "certificate_link": "https://learn.deeplearning.ai/accomplishments/f5b9e3b9-2e44-48c4-bdbd-009cb936da7c", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=DeepLearning.AI"},
+    { "name": "Prompt Engineering with LLama 2 & 3", "issuer": "DeepLearning.AI", "date": "2024", "certificate_link": "https://learn.deeplearning.ai/accomplishments/d1568d54-0c90-44f9-8a48-36cc5cf6ca98", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=DeepLearning.AI"},
+    { "name": "LLMs with Google Cloud and Python", "issuer": "Udemy", "date": "2024", "certificate_link": "https://www.udemy.com/certificate/UC-ed05b3e0-8583-4734-923a-cfb7a57e3770/", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Udemy"},
+    { "name": "Model Quantization Fundamentals", "issuer": "DeepLearning.AI", "date": "2024", "certificate_link": "https://learn.deeplearning.ai/accomplishments/1a2fc7b7-8007-4eb8-a97a-edfa6b92230f", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=DeepLearning.AI"},
+    { "name": "Red Teaming LLM Applications", "issuer": "DeepLearning.AI", "date": "2024", "certificate_link": "https://learn.deeplearning.ai/accomplishments/3834969f-9b2c-4e3e-8bd0-6b3664edf451", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=DeepLearning.AI"},
+    { "name": "Modern Computer Vision GPT, PyTorch, Keras, OpenCV", "issuer": "Udemy", "date": "2024", "certificate_link": "https://www.udemy.com/certificate/UC-c1cfbe7e-3f64-4d31-a490-ef18b197f816/", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Udemy"},
+    { "name": "Neural Networks and Deep Learning", "issuer": "Coursera", "date": "2020", "certificate_link": "https://coursera.org/share/bd82659bd9f8416f95e7085e75ea18e4", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Coursera"},
+    { "name": "Python for Data Science and Machine Learning Bootcamp", "issuer": "Udemy", "date": "2019", "certificate_link": "http://ude.my/UC-8YEKLPWI", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Udemy"},
+    { "name": "Machine Learning", "issuer": "Coursera", "date": "2018", "certificate_link": "https://www.coursera.org/account/accomplishments/verify/9JNACALAWQWA", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=Coursera"},
+    { "name": "Data Base Management System", "issuer": "NPTEL", "date": "2018", "certificate_link": "https://drive.google.com/file/d/16UtLwjvKT9RAuq2PohVdFv13aokpmzJE/view", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=NPTEL"},
+    { "name": "Programming, Data Structures and Algorithms Using C", "issuer": "NPTEL", "date": "2018", "certificate_link": "https://drive.google.com/file/d/1Pbs05PCnQVKRC38bjN2LMGYuWilXJHZN/view", "image_url": "https://placehold.co/300x200/2c2c2c/f0f0f0?text=NPTEL"}
   ],
   "work_experience": [
     {
-      "company": "Stark Industries",
-      "role": "Lead Data Scientist",
-      "location": "New York, NY",
-      "year": "2020 - Present",
+      "company": "Tata Consultancy Services",
+      "role": "Data Science Lead",
+      "location": "Bangalore",
+      "year": "Aug 2020 - Dec 2022",
       "description": [
-        "Developed and deployed machine learning models for predictive maintenance on Iron Man suits, reducing material fatigue by 30%.",
-        "Led a team of data analysts to optimize arc reactor energy output through advanced statistical modeling.",
-        "Created data visualizations for executive-level presentations to Nick Fury and the board."
-      ]
-    },
-    {
-      "company": "Wayne Enterprises",
-      "role": "Data Science Intern",
-      "location": "Gotham City",
-      "year": "Summer 2019",
-      "description": [
-        "Analyzed crime data to identify patterns and assist in the strategic deployment of vigilante resources.",
-        "Worked on sentiment analysis of news articles related to the company's public image.",
-        "Assisted in the development of a real-time data pipeline for tracking company assets."
+        "Developed, Deployed, and Maintained 3 NLP Production Tools for S&P 50 Client as Technical Lead",
+        "Managed a cross-function team of 5 (DS, DE, Cloud), optimizing workflows to double project delivery speed",
+        "Shipped ensemble GBM model to flag high-severity (outlier) error tickets, cutting budget costs by ~$500K",
+        "Fine-tuned models by training sBERT embeddings on customer domain data using transfer learning",
+        "Optimized domain-specific similarity classification models on 2M+ document pairs, boosting F1-score to 0.92",
+        "Drove 80% increase in tool adoption with TAM and User Penetration Analysis, A/B testing and SME feedback",
+        "Improved model robustness, reducing output variance by 30% & scaled inference load by 300% using MLOps",
+        "Conducted weekly client briefings to drive feature approvals and data expansion pipeline strategies"
       ]
     }
   ],
   "volunteer_experience": [
     {
-      "company": "S.P.E.W.",
-      "role": "Data Volunteer",
-      "location": "Hogwarts",
-      "year": "2018 - 2019",
+      "company": "Omdena",
+      "role": "GenAI Engineer",
+      "location": "Sri Lanka Chapter (remote)",
+      "year": "Nov 2024 - Jan 2025",
       "description": [
-        "Analyzed census data of house-elf populations to advocate for better working conditions.",
-        "Created dashboards to track the distribution of socks and other clothing items.",
-        "Used natural language processing to analyze texts for pro-elf sentiment."
+        "Developed Hybrid RAG using Language Agent Tree Search (LATS) to Enhance Regulatory Decision-Making",
+        "Volunteer open-source project for Sri Lanka Tea Regulatory Industry"
       ],
-      "repo_link": "#",
-      "cert_link": "#"
+      "repo_link": "https://github.com/OmdenaAI/SriLankaChapter_RegulatoryDecisionMaking",
+      "cert_link": "https://confirm.omdena.com/LCjqwlo"
+    },
+    {
+      "company": "Omdena",
+      "role": "Machine Learning Engineer",
+      "location": "Canada Chapter (remote)",
+      "year": "Nov 2023 - Jan 2024",
+      "description": [
+        "Classified Brain Scan sMRI Images for Early Detection and Diagnosis of Alzheimer’s"
+      ],
+      "repo_link": "https://dagshub.com/Omdena/TorontoCanadaChapter_BrainScanImages",
+      "cert_link": "https://confirm.omdena.com/LCyjqze"
     }
   ],
   "personal_projects": [
     {
-      "id": "project-chimera",
-      "title": "Project Chimera",
-      "category": "NLP",
-      "github_link": "#",
-      "description": [
-        "Developed a sentiment analysis model to classify customer reviews with 94% accuracy.",
-        "Utilized TF-IDF vectorization and a Support Vector Machine (SVM) classifier.",
-        "Deployed the model as a REST API using Flask for real-time predictions."
-      ],
-      "tech_stack": ["Python", "Scikit-learn", "Pandas", "Flask"]
-    },
-    {
-      "id": "project-griffin",
-      "title": "Project Griffin",
-      "category": "Computer Vision",
-      "github_link": "#",
-      "description": [
-        "Trained a convolutional neural network (CNN) to detect and classify different types of architectural styles from images.",
-        "Achieved a top-5 accuracy of 88% on a custom dataset of 20,000 images.",
-        "Leveraged transfer learning with a pre-trained ResNet50 model."
-      ],
-      "tech_stack": ["PyTorch", "OpenCV", "Matplotlib", "AWS S3"]
-    },
-    {
-      "id": "project-hydra",
-      "title": "Project Hydra",
+      "id": "project-qlora-llm",
+      "title": "Finetuning LLM using QLoRA",
       "category": "LLM",
-      "github_link": "#",
+      "github_link": "https://github.com/chinmayajoshi/SmolLM2-QLoRA-BoolQ/",
       "description": [
-        "Fine-tuned a GPT-2 model on a specialized corpus of ancient texts to generate stylistically consistent new passages.",
-        "Developed a data pipeline for text cleaning, normalization, and tokenization.",
-        "Built an interactive web interface with Streamlit for users to generate text."
+        "Finetune LLM (SmolLM2-1.7B-Instruct) using 4bit QLoRA, improving BoolQ Benchmark accuracy by 23%."
       ],
-      "tech_stack": ["Hugging Face", "PyTorch", "NLP", "Streamlit"]
+      "tech_stack": ["Python", "PyTorch", "HuggingFace", "PEFT", "Weights and Biases"]
     },
     {
-      "id": "project-cerberus",
-      "title": "Project Cerberus",
-      "category": "Red Team",
-      "github_link": "#",
+      "id": "project-sarcastic-shap",
+      "title": "Sarcastic Headlines Classification with Model Interpretability",
+      "category": "NLP",
+      "github_link": "https://github.com/chinmayajoshi/Sarcastic-Headlines-Interpretation",
       "description": [
-        "Simulated phishing attacks and analyzed employee response rates to identify security vulnerabilities.",
-        "Developed custom payloads and analyzed network traffic for signs of intrusion.",
-        "Presented a comprehensive report to stakeholders with actionable recommendations."
+        "Sarcastic Headlines Classification using XGBoost with Model Interpretation Analysis (LIME & SHAP)."
       ],
-      "tech_stack": ["Metasploit", "Wireshark", "Python", "Social Engineering"]
+      "tech_stack": ["Python", "Scikit-learn", "XGBoost", "LIME", "SHAP", "Weights and Biases"]
+    },
+    {
+      "id": "project-chess-bot",
+      "title": "Chess AI Tutor Bot",
+      "category": "LLM",
+      "github_link": "https://github.com/chinmayajoshi/Chess-Tutor-Bot",
+      "description": [
+        "Interactive Chess webapp (Flask) with LLM chatbot as a real-time tutor assistant.",
+        "Uses LLM tool-use with Stockfish chess engine.",
+        "Reasoning LLM Deepseek-R1-distill using Groq API."
+      ],
+      "tech_stack": ["Python", "Flask", "Groq", "DeepSeek"]
+    },
+    {
+      "id": "project-clustering-articles",
+      "title": "Semantic Clustering of Constitution Articles",
+      "category": "NLP",
+      "github_link": "https://github.com/chinmayajoshi/Constitutional-Document-Analysis",
+      "description": [
+        "Semantic Clustering of Indian Constitution Articles using Text Preprocessing, OpenAI Embeddings, & tSNE"
+      ],
+      "tech_stack": ["Python", "Numpy", "Pandas", "Scikit-learn", "OpenAI"]
     }
   ],
   "blog_posts": [
     {
-      "title": "The Art of Feature Engineering",
-      "date": "October 26, 2023",
-      "link": "#",
-      "summary": "A deep dive into creating impactful features from raw data. We explore techniques from polynomial features to interaction terms and beyond."
+      "title": "State of LLM Vulnerabilities in 2025 (OWASP Top 10)",
+      "date": "June 26, 2025",
+      "link": "https://www.linkedin.com/pulse/state-llm-vulnerabilities-2025-chinmaya-joshi-kp2fe/",
+      "summary": "Summarizes the OWASP Top 10 list for LLM security risks in 2025, detailing the most critical vulnerabilities such as prompt injection, sensitive information disclosure, supply chain attacks, and more, while also discussing examples and potential defenses for each."
     },
     {
-      "title": "Understanding Transformer Architectures",
+      "title": "Secret Language of LLMs- Hidden, Special, and Glitch Tokens",
+      "date": "February 3, 2025",
+      "link": "https://www.linkedin.com/pulse/secret-language-llms-hidden-special-glitch-tokens-chinmaya-joshi-cuobc/",
+      "summary": "Explains how LLMs use structural tokens like <pause> or <think> to scaffold reasoning, and explores “glitch tokens” (weird under‑trained tokens) that can trigger bizarre or vulnerable behaviors."
+    },
+    {
+      "title": "Story of Ilya Sutskever: before, during, and after co-founding OpenAI",
+      "date": "Nov 6, 2023",
+      "link": "https://www.linkedin.com/pulse/story-ilya-sutskever-before-during-after-co-founding-openai-joshi-xhc9f/",
+      "summary": "Traces Ilya Sutskever’s journey from early life and education to his pivotal role in AI breakthroughs and as a co-founder of OpenAI, highlighting his influence on the organization’s success and the vision for open, non-profit AI development."
+    },
+    {
+      "title": "Digital and Biological Paths to Intelligence - What really led to Geoff Hinton leaving Google",
       "date": "September 15, 2023",
-      "link": "#",
-      "summary": "Breaking down the self-attention mechanism and positional encodings that make Transformers the state-of-the-art in NLP."
+      "link": "https://www.linkedin.com/pulse/digital-biological-paths-intelligence-what-really-led-joshi/",
+      "summary": "Explores Geoff Hinton’s shift in perspective about AI dangers, explaining how his research led him to conclude that digital learning algorithms (like backpropagation) may surpass biological ones, prompting his public warnings about AI risks after leaving Google."
     }
   ],
   "technical_skills": [
-    "Python", "PyTorch", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "Matplotlib",
-    "SQL", "PostgreSQL", "Spark", "AWS", "GCP", "Azure", "Docker", "Kubernetes",
-    "Flask", "JavaScript", "HTML5", "CSS3", "Git", "Jira", "Linux", "Terraform", "CI/CD"
+    "Python", "Numpy", "Pandas", "Matplotlib", "Seaborn", "Plotly", "PyTorch",
+    "Tensorflow", "Keras", "Scikit-learn", "NLTK", "GCP", "Huggingface", "Langchain", "Llama-Index",
+    "SQL", "NoSQL", "MongoDB", "VectorDB", "FAISS", "ChromaDB", "KDB.AI", "Git", "GCP",
+    "Vertex AI", "Weights and Biases", "MLFlow", "Docker", "GKE", "Linux", "Bash", "Vim", "Jupyter Notebook",
+    "Streamlit", "Gradio", "Flask", "Prompt Engineering", ""
   ]
 }
