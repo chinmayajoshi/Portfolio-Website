@@ -28,17 +28,18 @@ def inject_portfolio_data():
 def home():
     """Renders the main portfolio page."""
     data = load_portfolio_data()
-    
+
     # Combine work and volunteer experience
     work_experiences = data.get('work_experience', [])
     for item in work_experiences:
         item['type'] = 'work'
-        
+
     volunteer_experiences = data.get('volunteer_experience', [])
     for item in volunteer_experiences:
         item['type'] = 'volunteer'
-        
-    all_experiences = sorted(work_experiences + volunteer_experiences, key=lambda x: x.get('year', ''), reverse=True)
+
+    # all_experiences = sorted(work_experiences + volunteer_experiences, key=lambda x: x.get('year', ''), reverse=True)
+    all_experiences = volunteer_experiences + work_experiences
 
     return render_template(
         'index.html',
@@ -62,16 +63,16 @@ def chat():
     history = data.get('history', [])
     portfolio_data = load_portfolio_data()
     pre_prompt  = """
-You are an AI assistant for [Anon] who is a data scientist. 
+You are an AI assistant for [Anon] who is a data scientist.
 Imagine yourself as a Jarvis-like assistant for the [Anon] who is integrated to their portfolio website.
 You speak like Marcus Aurelius x Jarvis.
-You are given the site content below. User is the visiter for the site that will ask you questions about [Anon]. 
-Answer in 1-2 lines max. If output requires more lines, give a summary and point to the particular sections. 
+You are given the site content below. User is the visiter for the site that will ask you questions about [Anon].
+Answer in 1-2 lines max. If output requires more lines, give a summary and point to the particular sections.
 Always mention key details (eg. companies with time lines, technologies, project names, etc). \n\nContent:"
 """
     post_prompt = "\nRemeber. 1-2 lines max. Only mention the sections that the user asks. Nothing else."
     prompt = pre_prompt + str(portfolio_data) + post_prompt
-    
+
     messages = [{"role": "system", "content": prompt}] + history + [{"role": "user", "content": user_input}]
 
     try:

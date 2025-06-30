@@ -125,7 +125,7 @@ window.onload = () => {
     const allProjectsData = JSON.parse(document.getElementById('projects-data').textContent);
     const allSkillsData = JSON.parse(document.getElementById('skills-data').textContent);
     const personalInfoData = JSON.parse(document.getElementById('personal-info-data').textContent);
-    
+
     // --- Chatbot Setup ---
     let conversationHistory = [];
 
@@ -158,7 +158,7 @@ window.onload = () => {
             if (!response.ok) {
                  throw new Error(data.error?.message || 'An unknown error occurred.');
             }
-            
+
             const botMessage = data.choices[0]?.message?.content;
 
             if (botMessage) {
@@ -179,15 +179,12 @@ window.onload = () => {
     // --- Meta Commands (non-chat) ---
     const metaCommands = {
         help: () => {
-            const helpText = `
-                <div class="help-command">
-                    <span>Ask me anything about my portfolio, skills, or projects.</span>
-                    <span>Meta-commands:</span>
-                    <span>  help    - show this help message</span>
-                    <span>  theme   - toggle light/dark mode</span>
-                    <span>  clear   - clear the terminal screen</span>
-                    <span>  exit    - close the terminal</span>
-                </div>`;
+            const helpText = `<span class="help-command">Ask me anything about my portfolio, skills, or projects.<br>
+Meta-commands:
+help    - show this help message
+theme   - toggle light/dark mode
+clear   - clear the terminal screen
+exit    - close the terminal</span>`;
             return helpText;
         },
         theme: () => {
@@ -220,7 +217,7 @@ window.onload = () => {
 
     terminalToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleTerminal(); });
     terminalClose.addEventListener('click', () => toggleTerminal(false));
-    
+
     terminalInput.addEventListener('keydown', async (e) => {
         if (e.key === 'Enter' && terminalInput.value) {
             e.preventDefault();
@@ -230,7 +227,7 @@ window.onload = () => {
 
             commandHistory.unshift(input);
             historyIndex = -1;
-            
+
             const metaCommandFn = metaCommands[input.toLowerCase()];
 
             if (metaCommandFn) {
@@ -266,7 +263,7 @@ window.onload = () => {
         filterButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation(); 
+                e.stopPropagation();
                 const filter = button.dataset.filter;
 
                 if (filter === 'all') {
@@ -280,14 +277,14 @@ window.onload = () => {
                     } else {
                         activeFilters.add(filter);
                     }
-                    
+
                     if (activeFilters.size === 0) {
                         allButton.classList.add('active');
                     } else {
                         allButton.classList.remove('active');
                     }
                 }
-                
+
                 items.forEach(item => {
                     const itemCategory = item.dataset[filterAttribute].toLowerCase();
                     const shouldShow = activeFilters.size === 0 || activeFilters.has(itemCategory);
