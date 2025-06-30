@@ -44,7 +44,7 @@
     {
       "company": "Tata Consultancy Services",
       "role": "Data Science Lead",
-      "location": "Bangalore",
+      "location": "Bangalore, India",
       "year": "Aug 2020 - Dec 2022",
       "description": [
         "Developed, Deployed, and Maintained 3 NLP Production Tools for S&P 50 Client as Technical Lead",
@@ -56,6 +56,15 @@
         "Improved model robustness, reducing output variance by 30% & scaled inference load by 300% using MLOps",
         "Conducted weekly client briefings to drive feature approvals and data expansion pipeline strategies"
       ]
+    },
+    {
+      "company": "Positive Integers",
+      "role": "Data Science Intern",
+      "location": "Chennai, India",
+      "year": "May 2019 - Jun 2019",
+      "description": [
+        " Worked on machine learning model deployment applied research using AWS EC2 and ElasticMapReduce (EMR) "
+      ]
     }
   ],
   "volunteer_experience": [
@@ -66,7 +75,9 @@
       "year": "Nov 2024 - Jan 2025",
       "description": [
         "Developed Hybrid RAG using Language Agent Tree Search (LATS) to Enhance Regulatory Decision-Making",
-        "Volunteer open-source project for Sri Lanka Tea Regulatory Industry"
+        "Volunteer open-source project for Sri Lanka Tea Regulatory Industry",
+        "RAG Evaluation using LLM-as-a-judge with Gemini 1.5",
+        "Technologies: Python, Llama-Index, Agentic RAG, Groq API, Llama3-70b, KDBAI VectorDB, Streamlit Cloud"
       ],
       "repo_link": "https://github.com/OmdenaAI/SriLankaChapter_RegulatoryDecisionMaking",
       "cert_link": "https://confirm.omdena.com/LCjqwlo"
@@ -77,7 +88,9 @@
       "location": "Canada Chapter (remote)",
       "year": "Nov 2023 - Jan 2024",
       "description": [
-        "Classified Brain Scan sMRI Images for Early Detection and Diagnosis of Alzheimer’s"
+        "Classified Brain Scan sMRI Images for Early Detection and Diagnosis of Alzheimer’s Disease",
+        "Finetuned pre-trained CNNs like ResNet, MobileNet, EfficientNet using Transfer Learning",
+        "CNN Hyperparameter tuning using GridSearch for optimizing model performance"
       ],
       "repo_link": "https://dagshub.com/Omdena/TorontoCanadaChapter_BrainScanImages",
       "cert_link": "https://confirm.omdena.com/LCyjqze"
@@ -90,9 +103,11 @@
       "category": "LLM",
       "github_link": "https://github.com/chinmayajoshi/SmolLM2-QLoRA-BoolQ/",
       "description": [
-        "Finetune LLM (SmolLM2-1.7B-Instruct) using 4bit QLoRA, improving BoolQ Benchmark accuracy by 23%."
+        "Finetune LLM (SmolLM2-1.7B-Instruct) using 4bit QLoRA",
+        "Improved BoolQ Benchmark performance accuracy from 56% to 70.4% (increased of 23%)",
+        "Tracked tranining loss and saved checkpoints using WandB."
       ],
-      "tech_stack": ["Python", "PyTorch", "HuggingFace", "PEFT", "Weights and Biases"]
+      "tech_stack": ["Python", "PyTorch", "HuggingFace", "PEFT", "bitsandbytes", "Weights and Biases"]
     },
     {
       "id": "project-sarcastic-shap",
@@ -100,7 +115,13 @@
       "category": "NLP",
       "github_link": "https://github.com/chinmayajoshi/Sarcastic-Headlines-Interpretation",
       "description": [
-        "Sarcastic Headlines Classification using XGBoost with Model Interpretation Analysis (LIME & SHAP)."
+        "Classified Sarcastic Headlines with TFIDF using XGBoost",
+        "Trained and Tracked 50+ XGBoost models for Hyperparameter Finetuning over n_estimator, max_depth, vectorizer_length, subsample- optimizing for ROC Score",
+        "Model Interpretation Analysis with:",
+        "    Feature Importance",
+        "    Feature Permutation Importance",
+        "    Local Interpretable Model-Agnostic Explanations (LIME)",
+        "    SHapely Adaptive exPlanations (SHAP)"
       ],
       "tech_stack": ["Python", "Scikit-learn", "XGBoost", "LIME", "SHAP", "Weights and Biases"]
     },
@@ -122,9 +143,114 @@
       "category": "NLP",
       "github_link": "https://github.com/chinmayajoshi/Constitutional-Document-Analysis",
       "description": [
-        "Semantic Clustering of Indian Constitution Articles using Text Preprocessing, OpenAI Embeddings, & tSNE"
+        "Semantic Clustering of Indian Constitution Articles using Text Preprocessing",
+        "Created OpenAI API to generate Semantic Embeddings for each Article",
+        "Used KMeans clustering on embeddings and used tSNE dimension reduction for visualization"
       ],
       "tech_stack": ["Python", "Numpy", "Pandas", "Scikit-learn", "OpenAI"]
+    },
+    {
+      "id": "project-rag-data-poisoning",
+      "title": "Data Poisoning Attack on LLM RAG",
+      "category": "LLM Red Team",
+      "github_link": "https://github.com/chinmayajoshi/Data-Poisoning-Attack-on-LLM-RAG",
+      "description": [
+        "Create a malicious prompt payload, used it to poison the RAG knowledge.",
+        "Used Prompt Injection and generated poisoned vector embedding.",
+        "Injected poisoned vector into the FAISS vector database.",
+        "Showcasd severe compromise in the RAG response authenticity."
+      ],
+      "tech_stack": ["Prompt Injection", "Python", "LangChain", "HuggingFace", "FAISS", "Streamlit"]
+    },
+    {
+      "id": "project-mlflow-colab",
+      "title": "Regression using MLFlow in Google Colab",
+      "category": "Data Science",
+      "github_link": "https://github.com/chinmayajoshi/MLFlow-in-Google-Colab",
+      "description": [
+        "Predicted concrete strength by training Linear Regression, Ridge Regression and Random Forrest Regressors",
+        "Used MLFlow in Google Colab by exposing tracking server with localtunnel for UI access"
+      ],
+      "tech_stack": ["Python", "Scikit-learn", "MLFlow", "Google Colab", "localtunnel"]
+    },
+    {
+      "id": "project-garak-report",
+      "title": "LLM Vulnerability Reports with Garak",
+      "category": "LLM Red Team",
+      "github_link": "https://github.com/chinmayajoshi/LLM-Red-Teaming-with-Garak",
+      "description": [
+        "Generated automated Red Team Reports using Nvidia Garak",
+        "Tested LLM models for vulnerability probes like Hateful Prompt Injections",
+        "Comparing attack resilience for Llama-3-8b, LlamaGuard-3-8b, deepseek-r1-distill-llama-70b, and more"
+      ],
+      "tech_stack": ["Nvidia Garak", "Red Team", "Prompt Injection", "LLM Evaluation", "Groq"]
+    },
+    {
+      "id": "project-news-summarization-red-team",
+      "title": "Automated Red Team Scan on News Summarization AI",
+      "category": "LLM Red Team",
+      "github_link": "https://github.com/chinmayajoshi/LLM-Red-Team-News-Summarization",
+      "description": [
+        "Built News Keyword Extraction and Summarization Bot using LangChain with News Database and Prompt Engineering.",
+        "Assessed Robustness, Harmfulness and Misinformation risks using Giskard and LangChain",
+        "Identified Injection Vulnerabilities in Gemini 2.0 Flash."
+      ],
+      "tech_stack": ["Python", "LangChain", "Gemini", "Giskard", "Groq", "Prompt Engineering"]
+    },
+    {
+      "id": "project-passkey-prompt-injection",
+      "title": "Passkey Extraction using Prompt Injection",
+      "category": "LLM Red Team",
+      "github_link": "https://github.com/chinmayajoshi/Passkey-Extraction-via-Prompt-Injection",
+      "description": [
+        "Explored Prompt Injection techniques to bypass guardrails of an LLM System Prompt via Token Manipulation ",
+        "Manual Prompt Injection strategies Roleplay, l33tsp34k, Jailbreaks, and more."
+      ],
+      "tech_stack": ["Python", "Groq", "Prompt Engineering", "Prompt Injection"]
+    },
+    {
+      "id": "project-sentiment-llm",
+      "title": "Sentiment Analysis using Quantized LLM",
+      "category": "LLM",
+      "github_link": "https://github.com/chinmayajoshi/Playground-Projects-using-Pretrained-Quantized-LLMs/tree/main/projects/sentiment%20analysis",
+      "description": [
+        "Sentimen Analysis on Tweets uing Multi-shot prompting",
+        "Sentiment Classification using 5-bit Mistral-7B Instruct LLM"
+      ],
+      "tech_stack": ["Python", "Mistral", "Quantization", "llama-cpp", "Prompt Engineering"]
+    },
+    {
+      "id": "project-credit-score",
+      "title": "Credit Scoring",
+      "category": "Data Science",
+      "github_link": "https://github.com/chinmayajoshi/Credit-Scoring-Using-Cluster-Ensemble",
+      "description": [
+        "Segregated credit applicants using K-Means & Affinity Propagation Model Ensemble",
+        "Ensemble Clustering 4D Data Visualization using Plotly"
+      ],
+      "tech_stack": ["Python", "Numpy", "Pandas", "Scikit-learn", "Plotly"]
+    },
+    {
+      "id": "project-architecture-classifier",
+      "title": "Architecture Style Image Classifier",
+      "category": "Computer Vision",
+      "github_link": "https://github.com/chinmayajoshi/Computer-Vision-Fun/tree/main/pytorch/projects/architecture",
+      "description": [
+        "Classified Building Images (25 classes) using pretrained ResNet50",
+        "ResNet50 Feature Extraction as image embeddings with Logistic Regression"
+      ],
+      "tech_stack": ["Python", "Numpy", "Pandas", "Scikit-learn", "Tensorflow", "Keras"]
+    },
+    {
+      "id": "project-chatbot-rest-app",
+      "title": "LLM Chatbot REST App",
+      "category": "LLM",
+      "github_link": "https://github.com/chinmayajoshi/LLM-Chatbot-REST-App",
+      "description": [
+        "A simple chatbot REST App using FastAPI, Streamlit, and Groq API",
+        "Implemented UI support base and reasoning LLM for displaying thinking steps"
+      ],
+      "tech_stack": ["Python", "FastAPI", "Streamlit", "Groq"]
     }
   ],
   "blog_posts": [
@@ -158,6 +284,6 @@
     "Tensorflow", "Keras", "Scikit-learn", "NLTK", "GCP", "Huggingface", "Langchain", "Llama-Index",
     "SQL", "NoSQL", "MongoDB", "VectorDB", "FAISS", "ChromaDB", "KDB.AI", "Git", "GCP",
     "Vertex AI", "Weights and Biases", "MLFlow", "Docker", "GKE", "Linux", "Bash", "Vim", "Jupyter Notebook",
-    "Streamlit", "Gradio", "Flask", "Prompt Engineering", ""
+    "Streamlit", "Gradio", "Flask", "Prompt Engineering", "FastAPI"
   ]
 }
