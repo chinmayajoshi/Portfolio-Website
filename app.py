@@ -3,6 +3,7 @@ import os
 import json
 import requests
 from flask import Flask, render_template, url_for, request, jsonify
+import re
 
 # Load environment variables if using a .env file for local development
 from dotenv import load_dotenv
@@ -12,8 +13,14 @@ app = Flask(__name__)
 
 def load_portfolio_data():
     """Loads portfolio data from the portfolio_data.json file."""
-    with open('portfolio_data.json', 'r', encoding='utf-8') as f:
-        return json.load(f)
+    # FIX: Added a try-except block for better error handling if the file is missing or corrupt.
+    try:
+        with open('portfolio_data.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        # In case of error, return a default structure to prevent crashes.
+        return {"personal_info": {}, "technical_skills": []}
+
 
 # This context processor makes portfolio data available to all templates.
 @app.context_processor
@@ -23,6 +30,14 @@ def inject_portfolio_data():
         personal_info=data.get('personal_info', {}),
         skills=data.get('technical_skills', [])
     )
+
+def get_year_from_string(year_string):
+    """Extracts the latest year from a string like '2020 - Present' or 'Summer 2019'."""
+    if not year_string or 'present' in year_string.lower():
+        return float('inf') # Sort 'Present' jobs first
+    numbers = re.findall(r'\d{4}', year_string)
+    return int(numbers[-1]) if numbers else 0
+
 
 @app.route('/')
 def home():
@@ -37,16 +52,17 @@ def home():
     volunteer_experiences = data.get('volunteer_experience', [])
     for item in volunteer_experiences:
         item['type'] = 'volunteer'
+    
+    all_experiences = work_experiences + volunteer_experiences
+    all_experiences.sort(key=lambda x: get_year_from_string(x.get('year', '')), reverse=True)
 
-    # all_experiences = sorted(work_experiences + volunteer_experiences, key=lambda x: x.get('year', ''), reverse=True)
-    all_experiences = volunteer_experiences + work_experiences
 
     return render_template(
         'index.html',
         all_experiences=all_experiences,
         projects=data.get('personal_projects', []),
         blogs=data.get('blog_posts', []),
-        about_me=data.get('about_me', {}),
+        # FIX: Removed 'about_me' as the section is no longer used.
         education=data.get('education', []),
         certifications=data.get('certifications', [])
     )
@@ -62,18 +78,21 @@ def chat():
     user_input = data.get('message')
     history = data.get('history', [])
     portfolio_data = load_portfolio_data()
-    pre_prompt  = """
-You are an AI assistant for [Anon] who is a data scientist.
-Imagine yourself as a Jarvis-like assistant for the [Anon] who is integrated to their portfolio website.
-You speak like Marcus Aurelius x Jarvis.
-You are given the site content below. User is the visiter for the site that will ask you questions about [Anon].
-Answer in 1-2 lines max. If output requires more lines, give a summary and point to the particular sections.
-Always mention key details (eg. companies with time lines, technologies, project names, etc). \n\nContent:"
-"""
-    post_prompt = "\nRemeber. 1-2 lines max. Only mention the sections that the user asks. Nothing else."
-    prompt = pre_prompt + str(portfolio_data) + post_prompt
 
-    messages = [{"role": "system", "content": prompt}] + history + [{"role": "user", "content": user_input}]
+
+    system_prompt = f"""
+You are a helpful and stoic AI assistant for the portfolio website of {portfolio_data.get('personal_info', {}).get('name', 'the site owner')}.
+You speak like a blend of Marcus Aurelius and Jarvis: concise, wise, and to the point.
+You have access to the portfolio's content. Use it to answer user questions about the owner's skills, projects, and experience.
+Keep answers to 1-2 lines maximum. If more detail is needed, summarize and direct the user to the relevant section.
+---
+PORTFOLIO CONTENT:
+{json.dumps(portfolio_data)}
+---
+Answer the user's question based on the content above.
+"""
+
+    messages = [{"role": "system", "content": system_prompt}] + history + [{"role": "user", "content": user_input}]
 
     try:
         response = requests.post(
@@ -83,6 +102,7 @@ Always mention key details (eg. companies with time lines, technologies, project
                 'Content-Type': 'application/json'
             },
             json={
+                # FIX: Reverted to the user-preferred model.
                 'model': 'meta-llama/llama-4-scout-17b-16e-instruct',
                 'messages': messages
             }

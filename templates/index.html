@@ -43,58 +43,59 @@
     <script id="certifications-data" type="application/json">{{ certifications | tojson }}</script>
     <script id="personal-info-data" type="application/json">{{ personal_info | tojson }}</script>
 
+    <!-- Mobile Navigation Hamburger Button -->
+    <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Open navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
 
-    <!-- FIX: Sidebar with decorative bubble spans -->
+    <!-- Mobile Navigation Panel -->
+    <div id="mobile-nav-panel" class="mobile-nav-panel">
+        <button id="mobile-nav-close" class="mobile-nav-close" aria-label="Close navigation">&times;</button>
+        <nav class="mobile-nav-links">
+            <!-- Links will be dynamically inserted here by script.js -->
+        </nav>
+    </div>
+
+
+    <!-- Redesigned Sidebar Navigation -->
     <nav class="sidebar-nav">
-        <a href="#experience" class="nav-button" data-target="#experience">
-            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
-            <div class="nav-button-content">
+        <!-- FIX: Removed the single active indicator div. The effect is now on the icons themselves. -->
+        <a href="#experience" class="nav-button" data-target="#experience" title="Work Experience">
+            <div class="nav-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span>Work Experience</span>
             </div>
+            <span class="nav-button-text">Experience</span>
         </a>
-        <a href="#education" class="nav-button" data-target="#education">
-            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
-            <div class="nav-button-content">
+        <a href="#education" class="nav-button" data-target="#education" title="Education">
+            <div class="nav-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 1.66 4 3 6 3s6-1.34 6-3v-5"></path></svg>
-                <span>Education</span>
             </div>
+            <span class="nav-button-text">Education</span>
         </a>
-        <a href="#personal-projects" class="nav-button" data-target="#personal-projects">
-            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
-            <div class="nav-button-content">
+        <a href="#personal-projects" class="nav-button" data-target="#personal-projects" title="Projects">
+            <div class="nav-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
-                <span>Projects</span>
             </div>
+            <span class="nav-button-text">Projects</span>
         </a>
-        <a href="#certifications" class="nav-button" data-target="#certifications">
-             <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
-            <div class="nav-button-content">
+        <a href="#certifications" class="nav-button" data-target="#certifications" title="Certifications">
+            <div class="nav-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline><path d="m9 12 2 2 4-4"></path></svg>
-                <span>Certifications</span>
             </div>
+            <span class="nav-button-text">Credentials</span>
         </a>
-        <a href="#blog" class="nav-button" data-target="#blog">
-            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
-            <div class="nav-button-content">
+        <a href="#blog" class="nav-button" data-target="#blog" title="Blog">
+            <div class="nav-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                <span>Blogs</span>
             </div>
+            <span class="nav-button-text">Blogs</span>
         </a>
-        <a href="#technical-skills" class="nav-button" data-target="#technical-skills">
-            <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>
-            <div class="nav-button-content">
+        <a href="#technical-skills" class="nav-button" data-target="#technical-skills" title="Skills">
+            <div class="nav-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                <span>Skills</span>
             </div>
+            <span class="nav-button-text">Skills</span>
         </a>
-        <!--<a href="#about-me" class="nav-button" data-target="#about-me">-->
-        <!--    <span class="deco-bubble"></span><span class="deco-bubble"></span><span class="deco-bubble"></span>-->
-        <!--    <div class="nav-button-content">-->
-        <!--        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>-->
-        <!--        <span>About</span>-->
-        <!--    </div>-->
-        <!--</a>-->
     </nav>
 
     <div class="container">
@@ -118,7 +119,7 @@
                 <h2>Experience</h2>
                 <div class="experience-list">
                     {% for job in all_experiences %}
-                    <div class="section-item" data-type="{{ job.type }}">
+                    <div class="section-item">
                         <div class="experience-header">
                             <h3>{{ job.company }}</h3>
                             <p>{{ job.location }}</p>
@@ -218,20 +219,6 @@
                 </div>
             </section>
 
-            <section id="about-me">
-                <button class="section-close-btn" title="Close Section">&times;</button>
-                <h2>{{ about_me.title }}</h2>
-                <div class="about-me-content">
-                    <div class="about-me-pic-wrapper">
-                        <img src="{{ about_me.profile_pic }}" alt="Profile Picture" class="about-me-pic"  onerror="this.src='https://placehold.co/150x150/d4af37/f8f7f2?text=Me';">
-                    </div>
-                    <div class="about-me-text">
-                        {% for paragraph in about_me.description %}
-                            <p>{{ paragraph }}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-            </section>
         </main>
     </div>
 
@@ -240,6 +227,10 @@
         <button id="modal-close-btn" class="modal-close" title="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         <div class="modal-content"><h2 id="modal-title">Project Title</h2><div id="modal-description"></div><h3>Tech Stack</h3><div id="modal-tech-stack" class="skill-cloud"></div></div>
     </div>
+
+    <button id="scrollToTopBtn" class="scroll-to-top-btn hidden" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
 
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </body>
